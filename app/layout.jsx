@@ -7,7 +7,7 @@ const RootLayout = ({children}) => {
     <html lang='en'>
         <body>
             <Provider>
-                <main>
+                <main className='mt-5'>
                     <Nav/>
                     {children}
                 </main>
