@@ -22,7 +22,7 @@ const Nav = () => {
 
     return (
         <nav className={`transition-all duration-300 w-full top-0 z-10 ${navSticky ? 'bg-gray-800' : 'bg-transparent'}`}>
-            <div className='flex justify-around'>
+            <div className='flex justify-around py-5'>
                 <Link href="/" className="flex items-center ml-10">
                     <Image
                         src="/assets/images/logo.png"

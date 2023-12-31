@@ -21,6 +21,9 @@ body {
   margin-top: 1rem;
 }
 
+.main-container {
+  min-height: 90vh;
+}
 
 .main {
   width: 100vw;
