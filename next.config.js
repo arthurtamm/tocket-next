@@ -1,9 +1,24 @@
-const path = require('path');
-
-module.exports = {
-  // ... outras configurações ...
-  webpack: (config) => {
-    config.resolve.alias['@components'] = path.join(__dirname, 'caminho/para/seu/diretorio/components');
-    return config;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+    serverComponentsExternalPackages: ["mongoose"],
   },
-};
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
+  webpack(config) {
+    config.experiments = {
+      ...config.experiments,
+      topLevelAwait: true,
+    }
+    return config
+  }
+}
+
+module.exports = nextConfig

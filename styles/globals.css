@@ -158,11 +158,15 @@ body {
 }
 
 .dropdown {
-  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end;
+  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-[#1b1a2ea9] bg-opacity-80 min-w-[210px] flex flex-col gap-2 justify-end items-end;
 }
 
 .dropdown_link {
-  @apply text-sm font-inter text-gray-700 hover:text-gray-500 font-medium;
+  @apply text-sm font-montserrat text-white hover:text-gray-500 font-medium;
+}
+
+.sticky{
+  background-color: #1b1a2ea9;
 }
 
 /* PromptCard Component */

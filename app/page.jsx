@@ -1,8 +1,11 @@
 import React from 'react'
+import Feed from '@components/Feed'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <section className="w-full flex-center flex-col">
+      <Feed/>
+    </section>
   )
 }
 

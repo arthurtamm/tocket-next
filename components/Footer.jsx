@@ -8,7 +8,7 @@ const Footer = () => {
     let year = date.getFullYear();
 
     return (
-        <div className="footer bg-gray-800 text-white p-4">
+        <div className="footer bg-gray-800 text-white p-4 sticky">
             <div className="container mx-auto flex justify-between">
                 <div className="footer-copywright">
                     <h3>TOCKET</h3>
