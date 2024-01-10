@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const EventPage = ( { params } ) => {
 
-  const eventId = params.name;
+  const eventId = params.id;
   const [event, setEvent] = useState({
     title: '',
     image: '',
@@ -13,10 +13,14 @@ const EventPage = ( { params } ) => {
     place: '',
   });
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [price, setPrice] = useState('');
+
   useEffect(() => {
       const getEventDetails = async () => {
           const response = await fetch(`/api/event/${eventId}`);
           const data = await response.json();
+          console.log("data: ", data);
 
           setEvent({
             title: data.title,
@@ -28,6 +32,20 @@ const EventPage = ( { params } ) => {
 
     if(eventId) getEventDetails();
   }, [eventId]);
+
+  const openModal = () => {
+    setPrice('');
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleConfirm = () => {
+    console.log('Preço confirmado:', price);
+    closeModal();
+  };
 
   return (
     <section className="text-white p-3">
@@ -47,7 +65,37 @@ const EventPage = ( { params } ) => {
           </div>
         </div>
       </div>
+
       
+      <div className="flex flex-row place-content-center mt-10">
+        <p className="text-center p-4"> Ingressos Disponíveis </p>
+
+        <button className="text-right p-4 ml-10 rounded-lg sticky hover:bg-blue-900" onClick={openModal}>
+          Anunciar Ingresso
+        </button>
+
+        {modalVisible && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <p>Preço:</p>
+              <input
+                type="text"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="p-2 border rounded-md mb-4 text-black"
+              />
+
+              <div>
+                <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">Cancelar</button>
+
+                <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">Confirmar</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+      </div>
+
       <p className="text-center pt-10 pb-4"> Ingressos Disponíveis </p>
 
       <div>

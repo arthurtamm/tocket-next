@@ -36,7 +36,7 @@ const Nav = () => {
                     />
                 </Link>
 
-                <Link href="/home" className="text-white mx-2  flex items-center">
+                <Link href="/" className="text-white mx-2  flex items-center">
                     <AiOutlineHome className="mr-2" /> Início
                 </Link>
                 <Link href="/about" className="text-white mx-2  flex items-center">
