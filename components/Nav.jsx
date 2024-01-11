@@ -47,14 +47,12 @@ const Nav = () => {
                     />
                 </Link>
 
-                <div className="sm:flex hidden">
-                    <Link href="/about" className="text-white mx-2  flex items-center">
-                        <AiOutlineUser className="mr-2" /> Sobre Nós
-                    </Link>
-                    <Link href="/project" className="text-white mx-2 flex items-center">
-                        <AiOutlineSwap className="mr-2" /> Marketplace
-                    </Link>
-                </div>
+                <Link href="/about" className="sm:flex hidden text-white mx-2  flex items-center">
+                    <AiOutlineUser className="mr-2" /> Sobre Nós
+                </Link>
+                <Link href="/project" className="sm:flex hidden text-white mx-2 flex items-center">
+                    <AiOutlineSwap className="mr-2" /> Marketplace
+                </Link>
 
                 <div className='flex relative'>
                 {!session?.user ? (
@@ -85,20 +83,20 @@ const Nav = () => {
                                 >
                                     SAC
                                 </Link>
-                                    <Link
-                                        href='/sobre'
-                                        className="sm:hidden dropdown_link"
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        Sobre nós
-                                    </Link>
-                                    <Link
-                                        href='/project'
-                                        className=" sm:hidden dropdown_link" 
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        Marketplace
-                                    </Link>
+                                <Link
+                                    href='/sobre'
+                                    className="sm:hidden dropdown_link"
+                                    onClick={() => setToggleDropdown(false)}
+                                >
+                                    Sobre nós
+                                </Link>
+                                <Link
+                                    href='/project'
+                                    className=" sm:hidden dropdown_link" 
+                                    onClick={() => setToggleDropdown(false)}
+                                >
+                                    Marketplace
+                                </Link>
                                 <button
                                     type="button"
                                     onClick={() => {
