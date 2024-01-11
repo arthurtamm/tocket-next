@@ -2,8 +2,29 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+
+const TicketList = ({ tickets }) => {
+  return (
+    <div>
+      <div className='mt-16 prompt_layout'>
+        {data.map((ticket) => (
+            <div className="sticky rounded-lg p-2 m-3 flex flex-row justify-around">
+              <p className="w-1/5"> {ticket.user.username}</p>
+              <p className="w-1/5"> R$ { ticket.price } </p>
+              <p className="w-1/5"> (65) 99987-3246 </p>
+            </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 const EventPage = ( { params } ) => {
+
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const eventId = params.id;
   const [event, setEvent] = useState({
@@ -12,9 +33,16 @@ const EventPage = ( { params } ) => {
     date: new Date(),
     place: '',
   });
+  const [tickets, setTickets] = useState({
+    userId: '',
+    eventId: '',
+    price: '',
+  
+  });
 
   const [modalVisible, setModalVisible] = useState(false);
   const [price, setPrice] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
       const getEventDetails = async () => {
@@ -32,6 +60,17 @@ const EventPage = ( { params } ) => {
 
     if(eventId) getEventDetails();
   }, [eventId]);
+  
+  useEffect(() => {
+    const getTickets = async () => {
+      const response = await fetch('/api/ticket');
+      const data = await response.json();
+
+      setTickets(data);
+    }
+
+    getTickets();
+  }, [eventId]);
 
   const openModal = () => {
     setPrice('');
@@ -46,6 +85,31 @@ const EventPage = ( { params } ) => {
     console.log('Preço confirmado:', price);
     closeModal();
   };
+
+  const sellTicket = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    try {
+        const response = await fetch('/api/ticket/new', {
+            method: 'POST',
+            body: JSON.stringify({
+                userId: session?.user.id,
+                event: eventId,
+                price: price,
+            }),
+        })
+
+        if(response.ok){
+            router.push('/');
+        }
+    } catch (error) {
+        console.log(error);
+    } finally {
+        setSubmitting(false);
+    
+    }
+}
 
   return (
     <section className="text-white p-3">
@@ -70,7 +134,7 @@ const EventPage = ( { params } ) => {
       <div className="flex flex-row place-content-center mt-10">
         <p className="text-center p-4"> Ingressos Disponíveis </p>
 
-        <button className="text-right p-4 ml-10 rounded-lg sticky hover:bg-blue-900" onClick={openModal}>
+        <button className="p-4 ml-10 btn" onClick={openModal}>
           Anunciar Ingresso
         </button>
 
@@ -86,9 +150,14 @@ const EventPage = ( { params } ) => {
               />
 
               <div>
-                <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">Cancelar</button>
+                <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">
+                  Cancelar
+                </button>
 
-                <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">Confirmar</button>
+                <button onClick={sellTicket} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">
+                  Confirmar
+                </button>
+
               </div>
             </div>
           </div>

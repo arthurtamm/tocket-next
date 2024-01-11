@@ -7,7 +7,9 @@ import { AiOutlineHome, AiOutlineSwap, AiOutlineUser } from "react-icons/ai";
 import { signIn, signOut, useSession, getProviders} from 'next-auth/react';
 
 const Nav = () => {
-    // const { data: session } = useSession();
+    const { data: session } = useSession();
+
+    const [providers, setProviders] = useState(null);
     const isLoggedIn = true;
     const [navSticky, setNavSticky] = useState(false);
     const [toggleDropdown, setToggleDropdown] = useState(false);
@@ -23,6 +25,16 @@ const Nav = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    useEffect(() => {
+        const setUpProviders = async () => {
+          const response = await getProviders();
+    
+          setProviders(response);
+        }
+    
+        setUpProviders();
+      }, [])
 
     return (
         <nav className={`transition-all duration-300 w-full top-0 z-10 ${navSticky ? 'sticky' : 'bg-transparent'}`}>
@@ -47,10 +59,10 @@ const Nav = () => {
                 </Link>
 
                 <div className='flex relative'>
-                {isLoggedIn ? (
+                {session?.user ? (
                     <div className='flex'>
                         <Image
-                            src={'/assets/images/profile.png'}
+                            src={session?.user.image}
                             width={37}
                             height={37}
                             className='rounded-full'
@@ -84,15 +96,24 @@ const Nav = () => {
                                     SAC
                                 </Link>
 
-                                {/* <button
+                                {/* <Link
+                                    href='/sac'
+                                    className="dropdown_link" 
+                                    onClick={() => setToggleDropdown(false)}
+                                >
+                                    SAC
+                                </Link> */}
+                                
+                                <button
                                     type="button"
                                     onClick={() => {
                                         setToggleDropdown(false);
                                         signOut();
                                     }}
+                                    className='text-white'
                                 >
-                                    Sign Out
-                                </button> */}
+                                    Sair
+                                </button>
                             </div>
                         )}
                     </div>
@@ -105,9 +126,9 @@ const Nav = () => {
                                     type="button"
                                     key={provider.name}
                                     onClick={() => signIn(provider.id)}
-                                    className='black_btn'
+                                    className='btn text-white p-2'
                                 >
-                                    Sign In
+                                    Entrar
                                 </button>
                             ))
                         }
