@@ -10,7 +10,7 @@ const Nav = () => {
     const { data: session } = useSession();
 
     const [providers, setProviders] = useState(null);
-    const isLoggedIn = true;
+
     const [navSticky, setNavSticky] = useState(false);
     const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -29,7 +29,6 @@ const Nav = () => {
     useEffect(() => {
         const setUpProviders = async () => {
           const response = await getProviders();
-    
           setProviders(response);
         }
     
@@ -48,18 +47,15 @@ const Nav = () => {
                     />
                 </Link>
 
-                <Link href="/" className="text-white mx-2  flex items-center">
-                    <AiOutlineHome className="mr-2" /> Início
-                </Link>
-                <Link href="/about" className="text-white mx-2  flex items-center">
+                <Link href="/about" className="sm:flex hidden text-white mx-2  flex items-center">
                     <AiOutlineUser className="mr-2" /> Sobre Nós
                 </Link>
-                <Link href="/project" className="text-white mx-2 flex items-center">
+                <Link href="/project" className="sm:flex hidden text-white mx-2 flex items-center">
                     <AiOutlineSwap className="mr-2" /> Marketplace
                 </Link>
 
                 <div className='flex relative'>
-                {session?.user ? (
+                {!session?.user ? (
                     <div className='flex'>
                         <Image
                             src={session?.user.image}
@@ -71,7 +67,7 @@ const Nav = () => {
                         />
 
                         {toggleDropdown && (
-                            <div className="dropdown bg-black">
+                            <div className="dropdown bg-black z-50">
                                 <Link
                                     href='/eventos'
                                     className="dropdown_link"
@@ -81,29 +77,26 @@ const Nav = () => {
                                 </Link>
 
                                 <Link
+                                    href='/sac'
+                                    className="dropdown_link" 
+                                    onClick={() => setToggleDropdown(false)}
+                                >
+                                    SAC
+                                </Link>
+                                <Link
                                     href='/sobre'
-                                    className="dropdown_link"
+                                    className="sm:hidden dropdown_link"
                                     onClick={() => setToggleDropdown(false)}
                                 >
                                     Sobre nós
                                 </Link>
-
                                 <Link
-                                    href='/sac'
-                                    className="dropdown_link" 
+                                    href='/project'
+                                    className=" sm:hidden dropdown_link" 
                                     onClick={() => setToggleDropdown(false)}
                                 >
-                                    SAC
+                                    Marketplace
                                 </Link>
-
-                                {/* <Link
-                                    href='/sac'
-                                    className="dropdown_link" 
-                                    onClick={() => setToggleDropdown(false)}
-                                >
-                                    SAC
-                                </Link> */}
-                                
                                 <button
                                     type="button"
                                     onClick={() => {
