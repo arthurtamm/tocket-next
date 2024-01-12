@@ -2,18 +2,18 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-const TicketList = ({ tickets }) => {
+const TicketList = ({ data }) => {
   return (
     <div>
       <div className='mt-16 prompt_layout'>
         {data.map((ticket) => (
             <div className="sticky rounded-lg p-2 m-3 flex flex-row justify-around">
-              <p className="w-1/5"> {ticket.user.username}</p>
+              <p className="w-1/5"> {ticket.user?.username}</p>
               <p className="w-1/5"> R$ { ticket.price } </p>
-              <p className="w-1/5"> (65) 99987-3246 </p>
+              <p className="w-1/5"> (11) 99999-9999 </p>
             </div>
         ))}
       </div>
@@ -33,12 +33,7 @@ const EventPage = ( { params } ) => {
     date: new Date(),
     place: '',
   });
-  const [tickets, setTickets] = useState({
-    userId: '',
-    eventId: '',
-    price: '',
-  
-  });
+  const [tickets, setTickets] = useState([]);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [price, setPrice] = useState('');
@@ -48,7 +43,6 @@ const EventPage = ( { params } ) => {
       const getEventDetails = async () => {
           const response = await fetch(`/api/event/${eventId}`);
           const data = await response.json();
-          console.log("data: ", data);
 
           setEvent({
             title: data.title,
@@ -63,9 +57,10 @@ const EventPage = ( { params } ) => {
   
   useEffect(() => {
     const getTickets = async () => {
-      const response = await fetch('/api/ticket');
+      const response = await fetch(`/api/ticket/${eventId}`);
       const data = await response.json();
 
+      console.log("tickets: ", data);
       setTickets(data);
     }
 
@@ -101,13 +96,13 @@ const EventPage = ( { params } ) => {
         })
 
         if(response.ok){
-            router.push('/');
+          router.refresh();
         }
     } catch (error) {
         console.log(error);
     } finally {
-        setSubmitting(false);
-    
+      setSubmitting(false);
+      closeModal();
     }
 }
 
@@ -134,9 +129,10 @@ const EventPage = ( { params } ) => {
       <div className="flex flex-row place-content-center mt-10">
         <p className="text-center p-4"> Ingressos Disponíveis </p>
 
-        <button className="p-4 ml-10 btn" onClick={openModal}>
+        <button className="p-4 ml-10 btn" onClick={session?.user ? openModal : signIn}>
           Anunciar Ingresso
         </button>
+
 
         {modalVisible && (
           <div className="modal-overlay">
@@ -167,31 +163,9 @@ const EventPage = ( { params } ) => {
 
       <p className="text-center pt-10 pb-4"> Ingressos Disponíveis </p>
 
-      <div>
-        <div className="sticky rounded-lg p-2 m-3 flex flex-row justify-around">
-          <p className="w-1/5"> Gabriel Mendonça</p>
-          <p className="w-1/5"> R$ 175,00 </p>
-          <p className="w-1/5"> (65) 99987-3246 </p>
-        </div>
-
-        <div className="sticky rounded-lg p-2 m-3 flex flex-row justify-around">
-          <p className="w-1/5"> Pedro Civita</p>
-          <p className="w-1/5"> R$ 180,00 </p>
-          <p className="w-1/5"> (11) 99901-4434 </p>
-        </div>
-        
-        <div className="sticky rounded-lg p-2 m-3 flex flex-row justify-around">
-          <p className="w-1/5"> Arthur Tamm </p>
-          <p className="w-1/5"> R$ 185,00 </p>
-          <p className="w-1/5"> (31) 99645-5973 </p>
-        </div>
-
-        <div className="sticky rounded-lg p-2 m-3 flex flex-row justify-around">
-          <p className="w-1/5"> Caio Bôa </p>
-          <p className="w-1/5"> R$ 190,00 </p>
-          <p className="w-1/5"> (11) 99257-3730 </p>
-        </div>
-      </div>
+      <TicketList
+        data={tickets}
+      />
       
     </section>
   )
