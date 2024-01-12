@@ -8,18 +8,28 @@ import Link from 'next/link';
 import Loading from '@components/Loading';
 
 const EventList = ({ data }) => {
+
+    const [isShown, setIsShown] = useState(0);
+
     return (
     <>
       <div className='sm:flex hidden mt-10 h-full flex flex-row justify-between flex-wrap'>
         {data.map((event) => (
-            <div className='h-full flex justify-center mb-4 mr-5 ml-5'>
-                <Link href={`/events/${event._id}`}>
+            <div className='h-full flex justify-center items-center mb-4 mr-5 ml-5'>
+                <Link onMouseEnter={() => setIsShown(event._id)} onMouseLeave={() => setIsShown(0)} href={`/events/${event._id}`}>
+                    {isShown === event._id ? (
+                    <div className='w-200 h-200'>
+                        <h1 className='text-white text-4xl'>
+                                {event.title}
+                        </h1>
+                    </div>
+                    ) : (                    
                     <Image className='max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] rounded-xl'
                         src={event.image}
                         alt={event.title}
                         width={200}
                         height={200}
-                    />
+                    />) }
                 </Link>
             </div>
         ))}
