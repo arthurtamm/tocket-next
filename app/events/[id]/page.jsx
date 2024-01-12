@@ -4,13 +4,16 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Loading from '@components/Loading'
 
 const TicketList = ({ data }) => {
+  const sortedTickets = [...data].sort((a,b) => a.price - b.price);
+
   return (
     <div>
       <div className='mt-16 prompt_layout'>
-        {data.map((ticket) => (
-            <div className="sticky rounded-lg p-2 m-3 flex flex-row justify-around">
+        {sortedTickets.map((ticket) => (
+            <div className="sticky rounded-lg p-2 m-3 flex flex-row justify-around" key={ticket._id}>
               <p className="w-1/5"> {ticket.user?.username}</p>
               <p className="w-1/5"> R$ { ticket.price } </p>
               <p className="w-1/5"> (11) 99999-9999 </p>
@@ -38,33 +41,35 @@ const EventPage = ( { params } ) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [price, setPrice] = useState('');
   const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-      const getEventDetails = async () => {
-          const response = await fetch(`/api/event/${eventId}`);
-          const data = await response.json();
-
-          setEvent({
-            title: data.title,
-            image: data.image,
-            date: new Date(data.date),
-            place: data.place,
-          })
-      }
-
-    if(eventId) getEventDetails();
-  }, [eventId]);
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    const getTickets = async () => {
-      const response = await fetch(`/api/ticket/${eventId}`);
-      const data = await response.json();
+    const fetchData = async () => {
+      try {
+        const [eventResponse, ticketsResponse] = await Promise.all([
+          fetch(`/api/event/${eventId}`),
+          fetch(`/api/ticket/${eventId}`)
+        ]);
 
-      console.log("tickets: ", data);
-      setTickets(data);
-    }
+        const eventData = await eventResponse.json();
+        const ticketsData = await ticketsResponse.json();
 
-    getTickets();
+        setEvent({
+          title: eventData.title,
+          image: eventData.image,
+          date: new Date(eventData.date),
+          place: eventData.place,
+        });
+
+        setTickets(ticketsData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (eventId) fetchData();
   }, [eventId]);
 
   const openModal = () => {
@@ -106,69 +111,72 @@ const EventPage = ( { params } ) => {
     }
 }
 
-  return (
-    <section className="text-white p-3">
-      <h1>{event.title}</h1>
-      <div className="flex row w-full">
-        <Image
-          src={event.image}
-          alt={event.title}
-          width={500}
-          height={300}
-        />
-        <div className="sticky rounded-lg p-2 flex flex-col justify-center">
-          <div>
-            <p>{`Data:${event.date.getDay()}/${event.date.getMonth()}/${event.date.getFullYear()}`}</p>
-            <p>{`Horário: ${event.date.getHours()}:00`}</p>
-            <p>{`Local: ${event.place}`}</p>
-          </div>
-        </div>
+return (
+  <section className="text-white p-3">
+    {loading ? (
+      <div>
+        <Loading/>
       </div>
-
-      
-      <div className="flex flex-row place-content-center mt-10">
-        <p className="text-center p-4"> Ingressos Disponíveis </p>
-
-        <button className="p-4 ml-10 btn" onClick={session?.user ? openModal : signIn}>
-          Anunciar Ingresso
-        </button>
-
-
-        {modalVisible && (
-          <div className="modal-overlay">
-            <div className="modal">
-              <p>Preço:</p>
-              <input
-                type="text"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                className="p-2 border rounded-md mb-4 text-black"
-              />
-
-              <div>
-                <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">
-                  Cancelar
-                </button>
-
-                <button onClick={sellTicket} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">
-                  Confirmar
-                </button>
-
-              </div>
+    ) : (
+      <>
+        <h1>{event.title}</h1>
+        <div className="flex row w-full">
+          <Image
+            src={event.image}
+            alt={event.title}
+            width={500}
+            height={300}
+          />
+          <div className="sticky rounded-lg p-2 flex flex-col justify-center">
+            <div>
+              <p>{`Data:${event.date.getDay()}/${event.date.getMonth()}/${event.date.getFullYear()}`}</p>
+              <p>{`Horário: ${event.date.getHours()}:00`}</p>
+              <p>{`Local: ${event.place}`}</p>
             </div>
           </div>
-        )}
+        </div>
 
-      </div>
+        <div className="flex flex-row place-content-center mt-10">
+          <p className="text-center p-4"> Ingressos Disponíveis </p>
 
-      <p className="text-center pt-10 pb-4"> Ingressos Disponíveis </p>
+          <button className="p-4 ml-10 btn" onClick={session?.user ? openModal : signIn}>
+            Anunciar Ingresso
+          </button>
 
-      <TicketList
-        data={tickets}
-      />
-      
-    </section>
-  )
+          {modalVisible && (
+            <div className="modal-overlay">
+              <div className="modal">
+                <p>Preço:</p>
+                <input
+                  type="text"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="p-2 border rounded-md mb-4 text-black"
+                />
+
+                <div>
+                  <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">
+                    Cancelar
+                  </button>
+
+                  <button onClick={sellTicket} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">
+                    Confirmar
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <p className="text-center pt-10 pb-4"> Ingressos Disponíveis </p>
+
+        <TicketList
+          data={tickets}
+        />
+      </>
+    )}
+  </section>
+  );
 }
 
 export default EventPage;
