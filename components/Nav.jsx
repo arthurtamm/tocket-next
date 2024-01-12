@@ -116,7 +116,7 @@ const Nav = () => {
                             width={37}
                             height={37}
                         />
-                        <Image className='sem:flex hidden ml-8 rounded-full'
+                        <Image className='sm:flex hidden ml-8 rounded-full'
                             src={session?.user.image}
                             alt='profile'
                             width={37}
