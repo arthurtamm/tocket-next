@@ -9,18 +9,37 @@ import Loading from '@components/Loading';
 
 const EventList = ({ data }) => {
     return (
-      <div className='mt-16 prompt_layout'>
+    <>
+      <div className='sm:flex hidden mt-10 h-full flex flex-row justify-between flex-wrap'>
         {data.map((event) => (
-            <Link href={`/events/${event._id}`}>
-                <Image
-                    src={event.image}
-                    alt={event.title}
-                    width={200}
-                    height={200}
-                />
-            </Link>
+            <div className='h-full flex justify-center mb-4 mr-5 ml-5'>
+                <Link href={`/events/${event._id}`}>
+                    <Image className='max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] rounded-xl'
+                        src={event.image}
+                        alt={event.title}
+                        width={200}
+                        height={200}
+                    />
+                </Link>
+            </div>
         ))}
       </div>
+
+      <div className='sm:hidden mt-4 w-full flex flex-col'>
+        {data.map((event) => (
+            <div className='w-full flex justify-center mb-4'>
+                <Link className='w-3/4' href={`/events/${event._id}`}>
+                    <Image className='w-full max-h-[150px] min-h-[150px] rounded-xl'
+                        src={event.image}
+                        alt={event.title}
+                        width={200}
+                        height={200}
+                    />
+                </Link>
+            </div>
+        ))}
+      </div>
+    </>
     )
 }
 
@@ -62,14 +81,17 @@ const Feed = () => {
     );  
 
     return (
-        <section className= 'flex w-full flex-col items-center'>
+        <section className= 'flex w-full h-full flex-col items-center bg-indigo-950'>
             
-            <section className= 'flex w-full mt-10 flex-row'>
+            <section className= 'sm:flex hidden flex w-full mt-10 flex-row justify-center items-center'>
                 
-                <h1 className='text-white mr-20'>Eventos</h1>
+                <div className= 'flex flex-col justify-start'>
+                    <h1 className='text-white mr-20 text-4xl'>EVENTOS</h1>
+                    <h1 className='text-white mr-20 text-3xl'>BOMBANDO</h1>
+                </div>
                 
-                <form className='w-full'>
-                    <div className='w-1/3 relative'>
+                <form className='w-1/3'>
+                    <div className='relative'>
                         <input 
                             type="text"
                             placeholder='Buscar eventos'
@@ -82,11 +104,32 @@ const Feed = () => {
                         </span>
                     </div>
                 </form>
+            </section>
 
+            <section className= 'sm:hidden flex w-full h-full mt-2 flex-row justify-center items-center'>
+                
+                <div className= 'flex flex-col justify-start'>
+                    <h1 className='text-white ml-2 mr-5 text-2xl'>EVENTOS</h1>
+                    <h1 className='text-white ml-2 mr-5 text-xl'>BOMBANDO</h1>
+                </div>
+                
+                <form className='w-full mr-2'>
+                    <div className='relative'>
+                        <input 
+                            type="text"
+                            placeholder='Buscar eventos'
+                            className='w-full h-10 rounded-full pl-10'
+                            value={searchEvent.title}
+                            onChange={handleSearchChange}
+                        />
+                        <span className='absolute left-5 top-[50%]' style={{ transform: 'translate(-50%, -50%)'}}>
+                            <AiOutlineSearch className='text-gray-500' />
+                        </span>
+                    </div>
+                </form>
             </section>
 
             {loading ? <Loading /> : <EventList data={filteredEvents} />}
-
         </section>
   )
 }

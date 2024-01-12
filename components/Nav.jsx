@@ -36,7 +36,7 @@ const Nav = () => {
       }, [])
 
     return (
-        <nav className={`transition-all duration-300 w-full top-0 z-10 ${navSticky ? 'sticky' : 'bg-transparent'}`}>
+        <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'sticky' : 'bg-transparent'}`}>
             <div className='flex justify-around py-5'>
                 <Link href="/" className="flex items-center ml-10">
                     <Image
@@ -53,63 +53,76 @@ const Nav = () => {
                 <Link href="/project" className="sm:flex hidden text-white mx-2 flex items-center">
                     <AiOutlineSwap className="mr-2" /> Marketplace
                 </Link>
-
+                
                 <div className='flex relative'>
-                {!session?.user ? (
-                    <div className='flex'>
-                        <Image
+                {session?.user ? (
+                    <>
+                        <div className='flex'>
+                            <Image
+                                src={"/assets/images/icon-three-bars.jpg"}
+                                width={37}
+                                height={37}
+                                alt='profile'
+                                onClick={() => setToggleDropdown((prev) => !prev)}
+                            />
+
+                            {toggleDropdown && (
+                                <div className="dropdown bg-black z-50">
+                                    <Link
+                                        href='/eventos'
+                                        className="dropdown_link"
+                                        onClick={() => setToggleDropdown(false)}
+                                    >
+                                        Eventos
+                                    </Link>
+
+                                    <Link
+                                        href='/sac'
+                                        className="dropdown_link" 
+                                        onClick={() => setToggleDropdown(false)}
+                                    >
+                                        SAC
+                                    </Link>
+                                    <Link
+                                        href='/sobre'
+                                        className="sm:hidden dropdown_link"
+                                        onClick={() => setToggleDropdown(false)}
+                                    >
+                                        Sobre nós
+                                    </Link>
+                                    <Link
+                                        href='/project'
+                                        className=" sm:hidden dropdown_link" 
+                                        onClick={() => setToggleDropdown(false)}
+                                    >
+                                        Marketplace
+                                    </Link>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setToggleDropdown(false);
+                                            signOut();
+                                        }}
+                                        className='text-white'
+                                    >
+                                        Sair
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                        <Image className='sm:hidden ml-4 rounded-full'
                             src={session?.user.image}
+                            alt='profile'
                             width={37}
                             height={37}
-                            className='rounded-full'
-                            alt='profile'
-                            onClick={() => setToggleDropdown((prev) => !prev)}
                         />
-
-                        {toggleDropdown && (
-                            <div className="dropdown bg-black z-50">
-                                <Link
-                                    href='/eventos'
-                                    className="dropdown_link"
-                                    onClick={() => setToggleDropdown(false)}
-                                >
-                                    Eventos
-                                </Link>
-
-                                <Link
-                                    href='/sac'
-                                    className="dropdown_link" 
-                                    onClick={() => setToggleDropdown(false)}
-                                >
-                                    SAC
-                                </Link>
-                                <Link
-                                    href='/sobre'
-                                    className="sm:hidden dropdown_link"
-                                    onClick={() => setToggleDropdown(false)}
-                                >
-                                    Sobre nós
-                                </Link>
-                                <Link
-                                    href='/project'
-                                    className=" sm:hidden dropdown_link" 
-                                    onClick={() => setToggleDropdown(false)}
-                                >
-                                    Marketplace
-                                </Link>
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setToggleDropdown(false);
-                                        signOut();
-                                    }}
-                                    className='text-white'
-                                >
-                                    Sair
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                        <Image className='sem:flex hidden ml-8 rounded-full'
+                            src={session?.user.image}
+                            alt='profile'
+                            width={37}
+                            height={37}
+                        />
+                    </>
                 ): (
                     <>
                         {providers && 
