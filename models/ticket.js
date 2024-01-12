@@ -14,6 +14,10 @@ const TicketSchema = new Schema({
         type: Number,
         required: [true, 'Price is required.'],
     },
+    type: {
+        type: String,
+        required: [true, 'Type is required.'],
+    },
 });
 
 const Ticket = models.Ticket || model('Ticket', TicketSchema);

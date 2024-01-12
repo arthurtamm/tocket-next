@@ -35,9 +35,10 @@ const EventPage = ( { params } ) => {
     image: '',
     date: new Date(),
     place: '',
+    ticketTypes: [],
   });
   const [tickets, setTickets] = useState([]);
-
+  const [selectedType, setSelectedType] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [price, setPrice] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -59,6 +60,7 @@ const EventPage = ( { params } ) => {
           image: eventData.image,
           date: new Date(eventData.date),
           place: eventData.place,
+          ticketTypes: eventData.ticketTypes || []  ,
         });
 
         setTickets(ticketsData);
@@ -97,6 +99,7 @@ const EventPage = ( { params } ) => {
                 userId: session?.user.id,
                 event: eventId,
                 price: price,
+                type: selectedType,
             }),
         })
 
@@ -153,6 +156,21 @@ return (
                   onChange={(e) => setPrice(e.target.value)}
                   className="p-2 border rounded-md mb-4 text-black"
                 />
+                <div>
+                    <label htmlFor="ticketType">Tipo:</label>
+                    <select
+                      id="ticketType"
+                      value={selectedType}
+                      onChange={(e) => setSelectedType(e.target.value)}
+                      className="p-2 border rounded-md mb-4 text-black"
+                    >
+                      {event.ticketTypes.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                </div>
 
                 <div>
                   <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">
@@ -170,9 +188,15 @@ return (
 
         <p className="text-center pt-10 pb-4"> Ingressos Disponíveis </p>
 
-        <TicketList
-          data={tickets}
-        />
+         {/* Mostra os ingressos organizados por tipo */}
+         {event.ticketTypes.map((type) => (
+            <div key={type}>
+              <h2>{type}</h2>
+              <TicketList
+                data={tickets.filter((ticket) => ticket.type === type)}
+              />
+            </div>
+          ))}
       </>
     )}
   </section>

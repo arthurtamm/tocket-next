@@ -2,14 +2,15 @@ import { connectToDB } from "@utils/database";
 import Ticket from "@models/ticket";    
 
 export const POST = async (req) => {
-    const { userId, event, price } = await req.json();
+    const { userId, event, price, type } = await req.json();
 
     try {
         await connectToDB();
         const newTicket = new Ticket({
             user: userId,
             event,
-            price
+            price,
+            type
         })
 
         await newTicket.save();

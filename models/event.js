@@ -20,6 +20,11 @@ const EventSchema = new Schema({
         type: String,
         required: [true, 'Place is required.'],
     },
+
+    ticketTypes: {
+        type: [String],
+        required: [true, 'Ticket types are required.'],
+    },
 });
 
 const Event = models.Event || model('Event', EventSchema);
