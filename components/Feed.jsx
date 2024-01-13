@@ -5,6 +5,10 @@ import Image from 'next/image';
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from 'next/link';
 import Loading from '@components/Loading';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 const EventItem = ({ event }) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -38,12 +42,50 @@ const EventItem = ({ event }) => {
 
 
 const EventList = ({ data }) => {
+    // Configurações para o carrossel
+    const settings = {
+        dots: true, // Mostra pontos de navegação na parte inferior do carrossel
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true, // Mostra setas de navegação
+        responsive: [
+            {
+                breakpoint: 768, // Tamanho da tela para dispositivos menores
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    arrows: false // Oculta setas em telas muito pequenas se desejado
+                }
+            }
+        ]
+    };
+
     return (
         <>
             <div className='sm:flex hidden mt-10 h-full flex flex-row justify-between flex-wrap'>
                 {data.map(event => <EventItem key={event._id} event={event} />)}
             </div>
-            {/* O restante da renderização para dispositivos menores, caso necessário */}
+
+            <div className='sm:hidden mt-4 w-4/5 flex flex-col px-4' style={{ height: '250px' }}> {/* Adiciona padding e fixa altura */}
+                <Slider {...settings}>
+                    {data.map(event => (
+                        <div key={event._id} className='w-9/10 flex justify-center mb-4'>
+                            <Link className='w-3/4' href={`/events/${event._id}`}>
+                                <Image
+                                    className='w-full rounded-xl px-1 max-h-[150px] min-h-[150px]'
+                                    src={event.image}
+                                    alt={event.title}
+                                    width={200}
+                                    height={200}
+                                />
+                            </Link>
+                        </div>
+                    ))}
+                </Slider>
+            </div>
         </>
     );
 };
