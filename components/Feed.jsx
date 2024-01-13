@@ -49,9 +49,17 @@ const EventList = ({ data }) => {
 };
 
 const Feed = () => {
+    // const response = await fetch('/api/event');
+    // const events = await response.json();
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchEvent, setSearchEvent] = useState({ title: '', image: '', date: new Date(), place: '', });
+
+    const [searchEvent, setSearchEvent] = useState({
+        title: '',
+        image: '',
+        date: new Date(),
+        place: '',
+    });
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -79,10 +87,56 @@ const Feed = () => {
 
     return (
         <section className='flex w-full h-full flex-col items-center bg-indigo-950'>
-            {/* Seções de pesquisa e cabeçalho, se necessário */}
+
+            <section className='sm:flex hidden flex w-full mt-10 flex-row justify-center items-center'>
+
+                <div className='flex flex-col justify-start'>
+                    <h1 className='text-white mr-20 text-4xl'>EVENTOS</h1>
+                    <h1 className='text-white mr-20 text-3xl'>BOMBANDO</h1>
+                </div>
+
+                <form className='w-1/3'>
+                    <div className='relative'>
+                        <input
+                            type="text"
+                            placeholder='Buscar eventos'
+                            className='w-full h-10 rounded-full pl-10'
+                            value={searchEvent.title}
+                            onChange={handleSearchChange}
+                        />
+                        <span className='absolute left-5 top-[50%]' style={{ transform: 'translate(-50%, -50%)' }}>
+                            <AiOutlineSearch className='text-gray-500' />
+                        </span>
+                    </div>
+                </form>
+            </section>
+
+            <section className='sm:hidden flex w-full h-full mt-2 flex-row justify-center items-center'>
+
+                <div className='flex flex-col justify-start'>
+                    <h1 className='text-white ml-2 mr-5 text-2xl'>EVENTOS</h1>
+                    <h1 className='text-white ml-2 mr-5 text-xl'>BOMBANDO</h1>
+                </div>
+
+                <form className='w-full mr-2'>
+                    <div className='relative'>
+                        <input
+                            type="text"
+                            placeholder='Buscar eventos'
+                            className='w-full h-10 rounded-full pl-10'
+                            value={searchEvent.title}
+                            onChange={handleSearchChange}
+                        />
+                        <span className='absolute left-5 top-[50%]' style={{ transform: 'translate(-50%, -50%)' }}>
+                            <AiOutlineSearch className='text-gray-500' />
+                        </span>
+                    </div>
+                </form>
+            </section>
+
             {loading ? <Loading /> : <EventList data={filteredEvents} />}
         </section>
-    );
-};
+    )
+}
 
-export default Feed;
+export default Feed
