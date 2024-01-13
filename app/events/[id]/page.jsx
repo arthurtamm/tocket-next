@@ -122,19 +122,21 @@ return (
       </div>
     ) : (
       <>
-        <h1>{event.title}</h1>
-        <div className="flex row w-full">
-          <Image
-            src={event.image}
-            alt={event.title}
-            width={500}
-            height={300}
-          />
-          <div className="sticky rounded-lg p-2 flex flex-col justify-center">
-            <div>
-              <p>{`Data:${event.date.getDay()}/${event.date.getMonth()}/${event.date.getFullYear()}`}</p>
-              <p>{`Horário: ${event.date.getHours()}:00`}</p>
-              <p>{`Local: ${event.place}`}</p>
+        <div className="flex flex-row items-center">
+          <h1 className='text-white text-6xl text-center ml-7 mr-10'>{event.title}</h1>
+          <div className="flex flex-row">
+            <Image
+              src={event.image}
+              alt={event.title}
+              width={500}
+              height={300}
+            />
+            <div className="sticky rounded-lg p-5 flex flex-col justify-between text-white text-xl text-center">
+              <div>
+                <p>{`Data:${event.date.getDay()}/${event.date.getMonth()}/${event.date.getFullYear()}`}</p>
+                <p>{`Horário: ${event.date.getHours()}:00`}</p>
+                <p>{`Local: ${event.place}`}</p>
+              </div>
             </div>
           </div>
         </div>

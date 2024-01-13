@@ -12,19 +12,25 @@ import "slick-carousel/slick/slick-theme.css";
 
 const EventItem = ({ event }) => {
     const [isHovered, setIsHovered] = useState(false);
-
     return (
         <div
             className='flex justify-center items-center mb-4 mr-5 ml-5'
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-        >
+        >  
             <Link href={`/events/${event._id}`}>
                 {isHovered ? (
-                    <div className='flex justify-center items-center max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] rounded-xl'>
-                        <h1 className='text-white text-4xl text-center'>
+                    <div className='flex justify-center items-center max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] rounded-xl bg-gray-950'>
+                        <h1 className='text-white text-4xl text-center mr-2  mr-2 z-10'>
                             {event.title}
                         </h1>
+                        <Image 
+                            className='absolute rounded-xl max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] opacity-30'
+                            src={event.image}
+                            alt={event.title}
+                            width={350}
+                            height={200}
+                        />
                     </div>
                 ) : (
                     <Image
