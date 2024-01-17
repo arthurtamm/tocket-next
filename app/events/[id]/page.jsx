@@ -122,49 +122,58 @@ return (
       </div>
     ) : (
       <>
-        <div className="flex flex-row items-center">
-          <h1 className='text-white text-6xl text-center ml-7 mr-10'>{event.title}</h1>
-          <div className="flex flex-row">
-            <Image
-              src={event.image}
-              alt={event.title}
-              width={500}
-              height={300}
-            />
-            <div className="sticky rounded-lg p-5 flex flex-col justify-between text-white text-xl text-center">
-              <div>
-                <p>{`Data:${event.date.getDay()}/${event.date.getMonth()}/${event.date.getFullYear()}`}</p>
-                <p>{`Horário: ${event.date.getHours()}:00`}</p>
-                <p>{`Local: ${event.place}`}</p>
+          <div className="flex flex-col rounded-lg sm:flex-row items-stretch">
+            <div className="w-full sm:w-1/2">
+              <Image
+                src={event.image}
+                alt={event.title}
+                layout="responsive"
+                width={500}
+                height={300}
+              />
+            </div>
+            <div className="w-full sticky sm:w-1/2 flex">
+              <div className="m-auto p-5 flex flex-col justify-between text-center">
+                <p className="text-sm sm:text-base lg:text-lg p-1">{`Data: ${event.date.getDay()} / ${event.date.getMonth()} / ${event.date.getFullYear()}`}</p>
+                <p className="text-sm sm:text-base lg:text-lg p-1">{`Horário: ${event.date.getHours()}:00`}</p>
+                <p className="text-sm sm:text-base lg:text-lg p-1">{`Local: ${event.place}`}</p>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-row place-content-center mt-10">
-          <p className="text-center p-4"> Ingressos Disponíveis </p>
+          <div className="flex flex-row place-content-center mt-10 text-center">
+            <button
+              className="px-4 py-2 text-sm sm:text-base lg:text-lg btn_anuncia transition duration-300 ease-in-out"
+              onClick={session?.user ? openModal : signIn}
+            >
+              Anunciar Ingresso
+            </button>
 
-          <button className="p-4 ml-10 btn" onClick={session?.user ? openModal : signIn}>
-            Anunciar Ingresso
-          </button>
 
-          {modalVisible && (
-            <div className="modal-overlay">
-              <div className="modal">
-                <p>Preço:</p>
-                <input
-                  type="text"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  className="p-2 border rounded-md mb-4 text-black"
-                />
-                <div>
-                    <label htmlFor="ticketType">Tipo:</label>
+            {  modalVisible && (
+              <div className="modal-overlay">
+                <div className="modal">
+                  <div className="mb-4">
+                    <p className="mb-2">Preço:</p>
+                    <div className="flex items-center border rounded-md">
+                      <span className="p-2 bg-gray-200">R$</span>
+                      <input
+                        type="text"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        className="p-2 flex-1 text-black"
+                        placeholder="0,00"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <label htmlFor="ticketType" className="mb-2 block">Tipo:</label>
                     <select
                       id="ticketType"
                       value={selectedType}
                       onChange={(e) => setSelectedType(e.target.value)}
-                      className="p-2 border rounded-md mb-4 text-black"
+                      className="p-2 border rounded-md w-full text-black"
                     >
                       {event.ticketTypes.map((type) => (
                         <option key={type} value={type}>
@@ -172,20 +181,21 @@ return (
                         </option>
                       ))}
                     </select>
-                </div>
+                  </div>
 
-                <div>
-                  <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">
-                    Cancelar
-                  </button>
+                  <div className="flex justify-between">
+                    <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg">
+                      Cancelar
+                    </button>
 
-                  <button onClick={sellTicket} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg m-4">
-                    Confirmar
-                  </button>
+                    <button onClick={sellTicket} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg">
+                      Confirmar
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+
         </div>
 
         <p className="text-center pt-10 pb-4"> Ingressos Disponíveis </p>

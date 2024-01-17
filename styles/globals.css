@@ -215,3 +215,21 @@ hover:bg-white hover:text-black text-center text-sm font-inter flex items-center
 .btn {
   @apply rounded-full py-1.5 px-5 text-white transition-all sticky hover:bg-blue-900 hover:text-white text-center flex items-center justify-center;
 }
+
+.btn_anuncia {
+  @apply rounded-full p-4 text-white transition-all sticky hover:bg-blue-900 hover:text-white text-center flex items-center justify-center;
+}
+
+/* Estilos para o contêiner do input e o prefixo */
+.modal .flex {
+  /* border: 1px solid rgb(182, 182, 182); */
+  /* Borda do contêiner */
+  border-radius: 4px;
+}
+
+.modal .flex span {
+  background-color: rgb(182, 182, 182);
+  /* Cor de fundo para o prefixo */
+  border-right: 1px solid rgb(182, 182, 182);
+  /* Borda direita para separar o prefixo do campo de entrada */
+}
