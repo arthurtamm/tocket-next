@@ -7,22 +7,21 @@ import { useRouter } from 'next/navigation';
 import Loading from '@components/Loading'
 
 const TicketList = ({ data }) => {
-  const sortedTickets = [...data].sort((a,b) => a.price - b.price);
+  const sortedTickets = [...data].sort((a, b) => a.price - b.price);
 
   return (
-    <div>
-      <div className='mt-16 prompt_layout'>
-        {sortedTickets.map((ticket) => (
-            <div className="sticky rounded-lg p-2 m-3 flex flex-row justify-around" key={ticket._id}>
-              <p className="w-1/5"> {ticket.user?.username}</p>
-              <p className="w-1/5"> R$ { ticket.price } </p>
-              <p className="w-1/5"> (11) 99999-9999 </p>
-            </div>
-        ))}
-      </div>
+    <div className="mt-4 mb-8">
+      {sortedTickets.map((ticket) => (
+        <div className="sticky rounded-lg p-2 m-3 flex flex-col w-2/5 md:flex-row justify-between items-center" key={ticket._id}>
+          <p className="text-lg md:w-1/3">{ticket.user?.username || 'Usuário desconhecido'}</p>
+          <p className="text-lg md:w-1/3">R$ {ticket.price.toFixed(2)}</p>
+          <p className="text-lg text-center md:w-1/3">{ticket.user?.phone || 'Sem número cadastrado'}</p>
+        </div>
+      ))}
     </div>
-  )
-}
+  );
+};
+
 
 const EventPage = ( { params } ) => {
 
@@ -150,7 +149,7 @@ return (
             </button>
 
 
-            {  modalVisible && (
+            { modalVisible && (
               <div className="modal-overlay">
                 <div className="modal">
                   <div className="mb-4">
@@ -200,7 +199,6 @@ return (
 
         <p className="text-center pt-10 pb-4"> Ingressos Disponíveis </p>
 
-         {/* Mostra os ingressos organizados por tipo */}
          {event.ticketTypes.map((type) => (
             <div key={type}>
               <h2>{type}</h2>
