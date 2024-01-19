@@ -2,12 +2,13 @@ import '@styles/globals.css';
 import Nav from '@components/Nav';
 import Provider from '@components/Provider';
 import Footer from '@components/Footer';
+import { AuthProvider } from './Providers';
 
 const RootLayout = ({children}) => {
   return (
     <html lang='en'>
         <body>
-            <Provider>
+            <AuthProvider>
               <Nav />
 
               <main className='main-container'>
@@ -15,7 +16,7 @@ const RootLayout = ({children}) => {
               </main>
 
               <Footer />
-            </Provider>
+            </AuthProvider>
         </body>
     </html>
   )

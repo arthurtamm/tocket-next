@@ -107,6 +107,7 @@ const Nav = () => {
                                     >
                                         Sair
                                     </button>
+                                    <p className='bg-white'>teste:{session?.user.name}</p>
                                 </div>
                             )}
                         </div>
@@ -128,14 +129,21 @@ const Nav = () => {
                         {providers && 
                             Object.values(providers).map((provider) => (
 
-                                <button
-                                    type="button"
-                                    key={provider.name}
-                                    onClick={() => signIn(provider.id)}
-                                    className='btn text-white p-2'
+                                // <button
+                                //     type="button"
+                                //     key={provider.name}
+                                //     onClick={() => signIn(provider.id)}
+                                //     href='/login'
+                                //     className='btn text-white p-2'
+                                // >
+                                //     Entrar
+                                // </button>
+                                <Link
+                                    href='/login'
+                                    className='bg-white'
                                 >
                                     Entrar
-                                </button>
+                                </Link>
                             ))
                         }
                     </>
