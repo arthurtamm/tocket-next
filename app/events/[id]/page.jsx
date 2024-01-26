@@ -92,19 +92,21 @@ const EventPage = ( { params } ) => {
     setSubmitting(true);
 
     try {
-        const response = await fetch('/api/ticket/new', {
-            method: 'POST',
-            body: JSON.stringify({
-                userId: session?.user.id,
-                event: eventId,
-                price: price,
-                type: selectedType,
-            }),
-        })
+      // console.log("user: ",  session?.user.id, "event: ", eventId, "price: ", price, "type: ", selectedType);
+      console.log("session: ", session?.user);
+      const response = await fetch('/api/ticket/new', {
+          method: 'POST',
+          body: JSON.stringify({
+              userId: session?.user.id,
+              event: eventId,
+              price: price,
+              type: selectedType,
+          }),
+      })
 
-        if(response.ok){
-          router.refresh();
-        }
+      if(response.ok){
+        router.refresh();
+      }
     } catch (error) {
         console.log(error);
     } finally {

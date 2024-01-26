@@ -9,6 +9,7 @@ const RegisterForm = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [error, setError] = useState("");
     
     const router = useRouter();
@@ -16,7 +17,7 @@ const RegisterForm = () => {
     const handleSubmit =  async (e) => {
         e.preventDefault();
 
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !phoneNumber) {
             setError("All fields are required.");
             return;
         }
@@ -39,13 +40,13 @@ const RegisterForm = () => {
             const res = await fetch('api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ name, email, password, phoneNumber }),
             });
 
             if (res.ok) {
                 const form = e.target;
                 form.reset();
-                router.push("/");
+                router.push("/login");
             } else {
                 console.log("User registration failed.")
             }
@@ -79,6 +80,12 @@ const RegisterForm = () => {
                     placeholder='Password'
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <input 
+                    className='input-login' 
+                    type="phone number" 
+                    placeholder='Phone Number'
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                />
                 <button className='bg-green-600 text-white font-bold cursor-pointer px-6 py-2'> Register </button>
 
                 {   error && (
@@ -98,4 +105,4 @@ const RegisterForm = () => {
   )
 }
 
-export default RegisterForm
+export default RegisterForm;

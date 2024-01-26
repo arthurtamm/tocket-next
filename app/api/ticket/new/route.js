@@ -3,7 +3,7 @@ import Ticket from "@models/ticket";
 
 export const POST = async (req) => {
     const { userId, event, price, type } = await req.json();
-
+    
     try {
         await connectToDB();
         const newTicket = new Ticket({

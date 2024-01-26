@@ -108,6 +108,7 @@ const Nav = () => {
                                         Sair
                                     </button>
                                     <p className='bg-white'>teste:{session?.user.name}</p>
+                                    <p className='bg-white'>teste 2:{session?.user.phoneNumber}</p>
                                 </div>
                             )}
                         </div>
