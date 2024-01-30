@@ -1,8 +1,8 @@
 "use client";
 
 import Link from 'next/link';
-import { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { useState, useEffect } from 'react';
+import { signIn, getProviders } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
@@ -10,8 +10,19 @@ const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    // const [providers, setProviders] = useState(null);
 
     const router = useRouter();
+    
+    // useEffect(() => {
+    //     const setUpProviders = async () => {
+    //         const response = await getProviders();
+    //         console.log("providers:  ", response);
+    //         setProviders(response);
+    //     }
+    
+    //     setUpProviders();
+    //   }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,8 +33,10 @@ const LoginForm = () => {
                 password,
                 redirect: false,
             });
+            // const res = await signIn(provider.id);
 
             if (res.error) {
+                console.log(res.error);
                 setError("Invalid credentials.");
                 return;
             }
