@@ -8,6 +8,8 @@ import Loading from '@components/Loading';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import '@styles/globals.css';
+import '@styles/styles.css';
 
 
 const EventItem = ({ event }) => {
@@ -25,7 +27,7 @@ const EventItem = ({ event }) => {
                             {event.title}
                         </h1>
                         <Image 
-                            className='absolute rounded-xl max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] opacity-30'
+                            className='absolute rounded-xl max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] opacity-30 animate-pulse'
                             src={event.image}
                             alt={event.title}
                             width={350}
@@ -55,11 +57,12 @@ const EventList = ({ data }) => {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        arrows: true, // Mostra setas de navegação
+        arrows: true,// Mostra setas de navegação
+        dotsClass: 'slick-dots' , // Classe para os pontos de navegação
         responsive: [
             {
                 breakpoint: 768, // Tamanho da tela para dispositivos menores
-                settings: {
+                settings: { // Configurações para telas menores
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: true,
