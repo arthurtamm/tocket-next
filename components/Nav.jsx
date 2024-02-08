@@ -34,7 +34,6 @@ const Nav = () => {
     
         setUpProviders();
       }, [])
-
     return (
         <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'sticky' : 'bg-transparent'}`}>
             <div className='flex justify-around py-5'>
@@ -69,20 +68,14 @@ const Nav = () => {
                             {toggleDropdown && (
                                 <div className="dropdown bg-black z-50">
                                     <Link
-                                        href='/eventos'
+                                        href='/profile'
                                         className="dropdown_link"
                                         onClick={() => setToggleDropdown(false)}
                                     >
-                                        Eventos
+                                        Perfil
                                     </Link>
 
-                                    <Link
-                                        href='/sac'
-                                        className="dropdown_link" 
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        SAC
-                                    </Link>
+                        
                                     <Link
                                         href='/sobre'
                                         className="sm:hidden dropdown_link"
@@ -107,23 +100,9 @@ const Nav = () => {
                                     >
                                         Sair
                                     </button>
-                                    <p className='bg-white'>teste:{session?.user.name}</p>
-                                    <p className='bg-white'>teste 2:{session?.user.phoneNumber}</p>
                                 </div>
                             )}
                         </div>
-                        <Image className='sm:hidden ml-4 rounded-full'
-                            src={session?.user.image}
-                            alt='profile'
-                            width={37}
-                            height={37}
-                        />
-                        <Image className='sm:flex hidden ml-8 rounded-full'
-                            src={session?.user.image}
-                            alt='profile'
-                            width={37}
-                            height={37}
-                        />
                     </>
                 ): (
                     <>
