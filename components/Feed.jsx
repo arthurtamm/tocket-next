@@ -137,7 +137,7 @@ const Feed = () => {
     );
 
     return (
-        <section className='flex w-full h-full flex-col items-center bg-indigo-950'>
+        <section className='flex w-full h-full flex-col items-center '>
 
             <section className='sm:flex hidden flex w-full mt-10 flex-row justify-center items-center'>
 

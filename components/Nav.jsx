@@ -37,8 +37,8 @@ const Nav = () => {
 
     return (
         <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'sticky' : 'bg-transparent'}`}>
-            <div className='flex justify-around py-5'>
-                <Link href="/" className="flex items-center ml-10">
+            <div className='flex justify-between py-5 px-5 md:mx-10'>
+                <Link href="/" className="flex items-center">
                     <Image
                         src="/assets/images/logo.png"
                         alt="Logo"
@@ -47,15 +47,15 @@ const Nav = () => {
                     />
                 </Link>
 
-                <Link href="/about" className="sm:flex hidden text-white mx-2  flex items-center">
+                {/* <Link href="/about" className="sm:flex hidden text-white mx-2 flex items-center">
                     <AiOutlineUser className="mr-2" /> Sobre Nós
                 </Link>
                 <Link href="/project" className="sm:flex hidden text-white mx-2 flex items-center">
                     <AiOutlineSwap className="mr-2" /> Marketplace
-                </Link>
+                </Link> */}
                 
                 <div className='flex relative'>
-                {session?.user ? (
+                {!session?.user ? (
                     <>
                         <div className='flex'>
                             <Image
@@ -69,12 +69,21 @@ const Nav = () => {
                             {toggleDropdown && (
                                 <div className="dropdown bg-black z-50">
                                     <Link
+                                        href='/perfil'
+                                        className="dropdown_link"
+                                        onClick={() => setToggleDropdown(false)}
+                                    >
+                                        Perfil
+                                    </Link>
+
+                                    <Link
                                         href='/eventos'
                                         className="dropdown_link"
                                         onClick={() => setToggleDropdown(false)}
                                     >
                                         Eventos
                                     </Link>
+
 
                                     <Link
                                         href='/sac'
@@ -103,14 +112,14 @@ const Nav = () => {
                                             setToggleDropdown(false);
                                             signOut();
                                         }}
-                                        className='text-white'
+                                        className='dropdown_link'
                                     >
                                         Sair
                                     </button>
                                 </div>
                             )}
                         </div>
-                        <Image className='sm:hidden ml-4 rounded-full'
+                        {/* <Image className='sm:hidden ml-4 rounded-full'
                             src={session?.user.image}
                             alt='profile'
                             width={37}
@@ -121,7 +130,7 @@ const Nav = () => {
                             alt='profile'
                             width={37}
                             height={37}
-                        />
+                        /> */}
                     </>
                 ): (
                     <>
