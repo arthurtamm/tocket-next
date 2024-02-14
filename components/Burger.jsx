@@ -5,7 +5,13 @@ const HamburgerMenu = () => (
         <Menu right
             customBurgerIcon={<HamburgerIcon />}
             width={'150px'}
-            className="right-0"
+            className="right-0 top-12"
+            // nessa className se colocar acima se colocar top-0
+            // fica bonito, mas fica por cima do botão de menu que é onde
+            // cancela o menu. eu queria deixar top-0 e só clicando
+            // no background cancelar o menu, mas não consegui.
+            // nesse link tem mais informações sobre:
+            // https://www.npmjs.com/package/react-burger-menu
             customCrossIcon={false}
         >
             <Links />
