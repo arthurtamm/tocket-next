@@ -2,15 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHome, AiOutlineSwap, AiOutlineUser } from "react-icons/ai";
+import HamburgerMenu from './Burger';
 import { signIn, signOut, useSession, getProviders} from 'next-auth/react';
 
 const Nav = () => {
     const { data: session } = useSession();
-
     const [providers, setProviders] = useState(null);
-
     const [navSticky, setNavSticky] = useState(false);
     const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -58,79 +57,8 @@ const Nav = () => {
                 {!session?.user ? (
                     <>
                         <div className='flex'>
-                            <Image
-                                src={"/assets/images/icon-three-bars.jpg"}
-                                width={37}
-                                height={37}
-                                alt='profile'
-                                onClick={() => setToggleDropdown((prev) => !prev)}
-                            />
-
-                            {toggleDropdown && (
-                                <div className="dropdown bg-black z-50">
-                                    <Link
-                                        href='/perfil'
-                                        className="dropdown_link"
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        Perfil
-                                    </Link>
-
-                                    <Link
-                                        href='/eventos'
-                                        className="dropdown_link"
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        Eventos
-                                    </Link>
-
-
-                                    <Link
-                                        href='/sac'
-                                        className="dropdown_link" 
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        SAC
-                                    </Link>
-                                    <Link
-                                        href='/sobre'
-                                        className="sm:hidden dropdown_link"
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        Sobre nós
-                                    </Link>
-                                    <Link
-                                        href='/project'
-                                        className=" sm:hidden dropdown_link" 
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        Marketplace
-                                    </Link>
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            setToggleDropdown(false);
-                                            signOut();
-                                        }}
-                                        className='dropdown_link'
-                                    >
-                                        Sair
-                                    </button>
-                                </div>
-                            )}
+                            <HamburgerMenu />
                         </div>
-                        {/* <Image className='sm:hidden ml-4 rounded-full'
-                            src={session?.user.image}
-                            alt='profile'
-                            width={37}
-                            height={37}
-                        />
-                        <Image className='sm:flex hidden ml-8 rounded-full'
-                            src={session?.user.image}
-                            alt='profile'
-                            width={37}
-                            height={37}
-                        /> */}
                     </>
                 ): (
                     <>
@@ -152,7 +80,7 @@ const Nav = () => {
                 </div>
             </div>
         </nav>
-    )
+    );
 }
 
 export default Nav;
