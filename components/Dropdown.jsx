@@ -5,13 +5,22 @@ import Link from 'next/link';
 const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
     return (
         <>
-            <Image
-                src={"/assets/images/icon-three-bars.jpg"}
-                width={37}
-                height={37}
-                alt='profile'
+            <div 
+                className="flex p-1/2 items-center"
                 onClick={() => setToggleDropdown((prev) => !prev)}
-            />
+                    >
+                <svg
+                    className="w-8 h-8 text-gray-300"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </div>
 
                                         {
             toggleDropdown && (
