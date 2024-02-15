@@ -10,88 +10,66 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 
-const EventItem = ({ event }) => {
+const EventItem = ({ event, hover }) => {    
     const [isHovered, setIsHovered] = useState(false);
     return (
-        <div
-            className='flex justify-center items-center mb-4 mr-5 ml-5'
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >  
-            <Link href={`/events/${event._id}`}>
-                {isHovered ? (
-                    <div className='flex justify-center items-center max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] rounded-xl bg-gray-950'>
-                        <h1 className='text-white text-4xl text-center mr-2  mr-2 z-10'>
-                            {event.title}
-                        </h1>
-                        <Image 
-                            className='absolute rounded-xl max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] opacity-30 animate-pulse'
-                            src={event.image}
-                            alt={event.title}
-                            width={350}
-                            height={200}
-                        />
-                    </div>
-                ) : (
-                    <Image
-                        className='max-h-[200px] min-h-[200px] max-w-[350px] min-w-[350px] rounded-xl'
-                        src={event.image}
-                        alt={event.title}
-                        width={350}
-                        height={200}
-                    />
-                )}
-            </Link>
-        </div>
-    );
-};
-
-
-const EventList = ({ data }) => {
-    // Configurações para o carrossel
-    const settings = {
-        dots: true, // Mostra pontos de navegação na parte inferior do carrossel
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,// Mostra setas de navegação
-        dotsClass: 'slick-dots' , // Classe para os pontos de navegação
-        responsive: [
-            {
-                breakpoint: 768, // Tamanho da tela para dispositivos menores
-                settings: { // Configurações para telas menores
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    infinite: true,
-                    arrows: false // Oculta setas em telas muito pequenas se desejado
-                }
-            }
-        ]
-    };
-
-    return (
         <>
-            <div className='sm:flex hidden mt-10 h-full flex flex-row justify-between flex-wrap'>
-                {data.map(event => <EventItem key={event._id} event={event} />)}
-            </div>
-
-            <div className='sm:hidden mt-4 w-4/5 flex flex-col px-4' style={{ height: '250px' }}> {/* Adiciona padding e fixa altura */}
-                <Slider {...settings}>
-                    {data.map(event => (
-                        <div key={event._id} className='w-9/10 flex justify-center mb-4'>
-                            <Link className='w-3/4' href={`/events/${event._id}`}>
-                                <Image
-                                    className='w-full rounded-xl px-1 max-h-[150px] min-h-[150px]'
+            <div
+                className='md:flex justify-center items-center mb-4 mr-5 ml-5'
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >  
+                <Link href={`/events/${event._id}`}>
+                    {hover ? (
+                        isHovered ? (
+                            <div className='flex justify-center items-center max-h-[170px] min-h-[170px] max-w-[300px] min-w-[300px] rounded-xl bg-gray-950'>
+                                <h1 className='text-white text-4xl text-center mr-2 z-10'>
+                                    {event.title}
+                                </h1>
+                                <Image 
+                                    className='absolute rounded-xl max-h-[170px] min-h-[170px] max-w-[300px] min-w-[300px] opacity-30 animate-pulse'
                                     src={event.image}
                                     alt={event.title}
-                                    width={200}
-                                    height={200}
+                                    width={300}
+                                    height={170}
+                                />
+                            </div>
+                        ) : (
+                            <Image
+                                className='max-h-[170px] min-h-[170px] max-w-[300px] min-w-[300px] rounded-xl'
+                                src={event.image}
+                                alt={event.title}
+                                width={300}
+                                height={170}
+                            />
+                        )
+                    ) : (
+                        <div className='max-w-[640px] flex flex-col justify-center items-center'>
+                            <Link href={`/events/${event._id}`}>
+                                <Image
+                                    className='max-h-[170px] min-h-[170px] max-w-[300px] min-w-[300px] rounded-xl'
+                                    src={event.image}
+                                    alt={event.title}
+                                    width={300}
+                                    height={170}
                                 />
                             </Link>
                         </div>
-                    ))}
-                </Slider>
+                    )}
+                </Link>
+            </div>
+        </>
+    );
+};
+
+const EventList = ({ data }) => {
+    return (
+        <>
+            <div className='md:flex hidden mt-10 h-full flex flex-row justify-between flex-wrap'>
+                {data.map(event => <EventItem key={event._id} event={event} hover={true} />)}
+            </div>
+            <div className='sm:hidden mt-4 w-4/5 flex flex-col px-4'>
+                {data.map(event => <EventItem key={event._id} event={event} hover={false}/>)}
             </div>
         </>
     );
