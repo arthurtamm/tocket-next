@@ -42,37 +42,56 @@ const EventPage = ( { params } ) => {
   const [price, setPrice] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const [userData, setUserData] = useState({
+    name: null,
+    phoneNumber: null,
+  });
   
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); // Inicia o carregamento
+  
       try {
-        const [eventResponse, ticketsResponse] = await Promise.all([
+        // Combina as chamadas de API necessárias
+        const [eventResponse, ticketsResponse, userDataResponse] = await Promise.all([
           fetch(`/api/event/${eventId}`),
-          fetch(`/api/ticket/${eventId}`)
+          fetch(`/api/ticket/${eventId}`),
+          session?.user?.id ? fetch(`/api/userData/${session.user.id}`) : Promise.resolve(null),
         ]);
-
+  
         const eventData = await eventResponse.json();
         const ticketsData = await ticketsResponse.json();
-
+        const userData = userDataResponse ? await userDataResponse.json() : null;
+  
+        // Atualiza o estado com os dados recebidos
         setEvent({
           title: eventData.title,
           image: eventData.image,
           date: new Date(eventData.date),
           place: eventData.place,
-          ticketTypes: eventData.ticketTypes || []  ,
+          ticketTypes: eventData.ticketTypes || [],
         });
-
         setTickets(ticketsData);
+  
+        if (userData) {
+          setUserData({
+            name: userData.name,
+            phoneNumber: userData.phoneNumber,
+          });
+        }
+  
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Finaliza o carregamento
       }
     };
-
-    if (eventId) fetchData();
-  }, [eventId]);
-
+  
+    if (eventId || session?.user?.id) fetchData();
+  }, [eventId, session?.user?.id]); // Dependências do useEffect
+  
+  
   const openModal = () => {
     setPrice('');
     setModalVisible(true);
@@ -92,19 +111,21 @@ const EventPage = ( { params } ) => {
     setSubmitting(true);
 
     try {
-        const response = await fetch('/api/ticket/new', {
-            method: 'POST',
-            body: JSON.stringify({
-                userId: session?.user.id,
-                event: eventId,
-                price: price,
-                type: selectedType,
-            }),
-        })
+      // console.log("user: ",  session?.user.id, "event: ", eventId, "price: ", price, "type: ", selectedType);
+      console.log("session: ", session?.user);
+      const response = await fetch('/api/ticket/new', {
+          method: 'POST',
+          body: JSON.stringify({
+              userId: session?.user.id,
+              event: eventId,
+              price: price,
+              type: selectedType,
+          }),
+      })
 
-        if(response.ok){
-          router.refresh();
-        }
+      if(response.ok){
+        router.refresh();
+      }
     } catch (error) {
         console.log(error);
     } finally {
@@ -143,7 +164,14 @@ return (
           <div className="flex flex-row place-content-center mt-10 text-center">
             <button
               className="px-4 py-2 text-sm sm:text-base lg:text-lg btn_anuncia transition duration-300 ease-in-out"
-              onClick={session?.user ? openModal : signIn}
+              onClick={() => {
+                if (userData.name) {
+                  openModal();
+                } else {
+                  console.log("userData: ", userData);
+                  router.push('/profile');
+                }
+              }}
             >
               Anunciar Ingresso
             </button>
