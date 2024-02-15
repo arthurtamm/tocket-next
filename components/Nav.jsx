@@ -45,38 +45,31 @@ const Nav = () => {
                         height={30}
                     />
                 </Link>
-
-                {/* <Link href="/about" className="sm:flex hidden text-white mx-2 flex items-center">
-                    <AiOutlineUser className="mr-2" /> Sobre Nós
-                </Link>
-                <Link href="/project" className="sm:flex hidden text-white mx-2 flex items-center">
-                    <AiOutlineSwap className="mr-2" /> Marketplace
-                </Link> */}
                 
                 <div className='flex relative'>
-                {!session?.user ? (
-                    <>
-                        <div className='flex'>
-                            <HamburgerMenu />
-                        </div>
-                    </>
-                ): (
-                    <>
-                        {providers && 
-                            Object.values(providers).map((provider) => (
+                    {!session?.user ? (
+                        <>
+                            <div className='flex'>
+                                <HamburgerMenu />
+                            </div>
+                        </>
+                    ): (
+                        <>
+                            {providers && 
+                                Object.values(providers).map((provider) => (
 
-                                <button
-                                    type="button"
-                                    key={provider.name}
-                                    onClick={() => signIn(provider.id)}
-                                    className='btn text-white p-2'
-                                >
-                                    Entrar
-                                </button>
-                            ))
-                        }
-                    </>
-                )}
+                                    <button
+                                        type="button"
+                                        key={provider.name}
+                                        onClick={() => signIn(provider.id)}
+                                        className='btn text-white p-2'
+                                    >
+                                        Entrar
+                                    </button>
+                                ))
+                            }
+                        </>
+                    )}
                 </div>
             </div>
         </nav>
