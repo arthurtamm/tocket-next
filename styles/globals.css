@@ -158,11 +158,13 @@ body {
 }
 
 .dropdown {
-  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-[#1b1a2ea9] bg-opacity-80 min-w-[210px] flex flex-col gap-2 justify-end items-end;
+  @apply absolute top-full mt-6 w-full bg-[#1b1a2ea9] p-5 min-w-[140px] flex flex-col gap-2 justify-center items-start rounded-2xl;
+  right: 0;
 }
 
 .dropdown_link {
-  @apply text-sm font-montserrat text-white hover:text-gray-500 font-medium;
+  @apply text-sm font-montserrat text-white hover:text-gray-500;
+  font-size: 16px;
 }
 
 .sticky{
@@ -236,4 +238,14 @@ hover:bg-white hover:text-black text-center text-sm font-inter flex items-center
 
 .input-login {
   @apply w-[400px] border border-gray-200 py-2 px-6 bg-zinc-100/40;
+=======
+/* Estilo para dots */
+
+.dots {
+  height: 10px;
+  width: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
 }

@@ -1,0 +1,10 @@
+/* Style for all dots */
+.slick-dots li button:before {
+    color: rgb(217, 135, 253); /* Change the color as needed */
+    font-size: 12px; /* Change the size as needed */
+}
+
+/* Style for the active dot */
+.slick-dots li.slick-active button:before {
+    color: rgb(140, 0, 255); /* Change the color as needed */
+}

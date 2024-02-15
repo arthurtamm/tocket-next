@@ -8,7 +8,7 @@ const Footer = () => {
     let year = date.getFullYear();
 
     return (
-        <div className="footer bg-gray-800 text-white p-4 sticky">
+        <div className="footer bg-gray-800 text-white p-4 w-full sticky">
             <div className="container mx-auto flex justify-between">
                 <div className="footer-copywright">
                     <h3>TOCKET</h3>
@@ -19,17 +19,6 @@ const Footer = () => {
                 <div className="footer-copywright">
                     <h3>contato.tocket@gmail.com</h3>
                 </div>
-                {/* <div className="footer-body">
-          <ul className="footer-icons">
-            <li className="social-icons">
-              <Link href="https://www.instagram.com/ingressofacil.sp/">
-                <a target="_blank" rel="noopener noreferrer">
-                  <AiFillInstagram />
-                </a>
-              </Link>
-            </li>
-          </ul>
-        </div> */}
             </div>
         </div>
     );
