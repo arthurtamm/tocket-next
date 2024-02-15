@@ -6,7 +6,7 @@ const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
     return (
         <>
             <div 
-                className="flex p-1/2 items-center"
+                className="flex items-center"
                 onClick={() => setToggleDropdown((prev) => !prev)}
                     >
                 <svg
