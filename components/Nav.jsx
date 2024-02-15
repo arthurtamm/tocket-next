@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHome, AiOutlineSwap, AiOutlineUser } from "react-icons/ai";
 import HamburgerMenu from './Burger';
 import { signIn, signOut, useSession, getProviders} from 'next-auth/react';
+import Dropdown from '@components/Dropdown';
 
 const Nav = () => {
     const { data: session } = useSession();
@@ -49,10 +50,14 @@ const Nav = () => {
                 <div className='flex relative'>
                     {!session?.user ? (
                         <>
-                            <div className='flex'>
-                                <HamburgerMenu />
-                            </div>
-                        </>
+                                <div className='flex'>
+                                    <HamburgerMenu />
+                                    <Dropdown
+                                        toggleDropdown={toggleDropdown}
+                                        setToggleDropdown={setToggleDropdown}
+                                    />
+                                </div>
+                            </>
                     ): (
                         <>
                             {providers && 
