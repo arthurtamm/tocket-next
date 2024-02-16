@@ -38,7 +38,7 @@ const HamburgerIcon = () => (
 export const Links = () => (
     <>
         <Link 
-            href="/perfil"
+            href="/profile"
         >
             Perfil
         </Link>

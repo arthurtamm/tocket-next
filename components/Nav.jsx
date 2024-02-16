@@ -34,6 +34,7 @@ const Nav = () => {
     
         setUpProviders();
       }, [])
+
     return (
         <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'sticky' : 'bg-transparent'}`}>
             <div className='flex justify-between py-5 px-5 md:mx-10'>
@@ -47,44 +48,7 @@ const Nav = () => {
                 </Link>
                 
                 <div className='flex relative'>
-
-                {session?.user ? (
-                    <>
-                        <div className='flex'>
-                            <Image
-                                src={"/assets/images/icon-three-bars.jpg"}
-                                width={37}
-                                height={37}
-                                alt='profile'
-                                onClick={() => setToggleDropdown((prev) => !prev)}
-                            />
-
-                            {toggleDropdown && (
-                                <div className="dropdown bg-black z-50">
-                                    <Link
-                                        href='/profile'
-                                        className="dropdown_link"
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        Perfil
-                                    </Link>
-
-                        
-                                    <Link
-                                        href='/sobre'
-                                        className="sm:hidden dropdown_link"
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        Sobre nós
-                                    </Link>
-                                    <Link
-                                        href='/project'
-                                        className=" sm:hidden dropdown_link" 
-                                        onClick={() => setToggleDropdown(false)}
-                                    >
-                                        Marketplace
-                                    </Link>
-                    {!session?.user ? (
+                    {session?.user ? (
                         <>
                                 <div className='flex'>
                                     <HamburgerMenu />
@@ -99,43 +63,20 @@ const Nav = () => {
                             {providers && 
                                 Object.values(providers).map((provider) => (
 
-
-                                    <button
-                                        type="button"
-                                        key={provider.name}
-                                        onClick={() => signIn(provider.id)}
-                                        className='btn text-white p-2'
+                                    // <button
+                                    //     type="button"
+                                    //     key={provider.name}
+                                    //     onClick={() => signIn(provider.id)}
+                                    //     className='btn text-white p-2'
+                                    // >
+                                    //     Entrar
+                                    // </button>
+                                    <Link
+                                        href='/api/auth/signin'
+                                        className='bg-white'
                                     >
                                         Entrar
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </>
-                ): (
-                    <>
-                        {providers && 
-                            Object.values(providers).map((provider) => (
-
-                                // <button
-                                //     type="button"
-                                //     key={provider.name}
-                                //     onClick={() => signIn(provider.id)}
-                                //     href='/login'
-                                //     className='btn text-white p-2'
-                                // >
-                                //     Entrar
-                                // </button>
-                                <Link
-                                    href='/login'
-                                    className='bg-white'
-                                >
-                                    Entrar
-                                </Link>
-                            ))
-                        }
-                    </>
-                )}
+                                    </Link>
                                 ))
                             }
                         </>
