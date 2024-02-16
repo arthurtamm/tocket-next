@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHome, AiOutlineSwap, AiOutlineUser } from "react-icons/ai";
-import HamburgerMenu from './Burger';
 import { signIn, signOut, useSession, getProviders} from 'next-auth/react';
 import Dropdown from '@components/Dropdown';
 
@@ -51,7 +50,6 @@ const Nav = () => {
                     {session?.user ? (
                         <>
                                 <div className='flex'>
-                                    <HamburgerMenu />
                                     <Dropdown
                                         toggleDropdown={toggleDropdown}
                                         setToggleDropdown={setToggleDropdown}

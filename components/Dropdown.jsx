@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { signOut } from 'next-auth/react';
 
 const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
     return (
@@ -26,14 +27,14 @@ const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
             toggleDropdown && (
                 <div className="dropdown bg-black z-50">
                     <Link
-                        href='/perfil'
+                        href='/profile'
                         className="dropdown_link"
                         onClick={() => setToggleDropdown(false)}
                     >
                         Perfil
                     </Link>
 
-                    <Link
+                    {/* <Link
                         href='/eventos'
                         className="dropdown_link"
                         onClick={() => setToggleDropdown(false)}
@@ -41,28 +42,13 @@ const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
                         Eventos
                     </Link>
 
-
-                    <Link
-                        href='/sac'
-                        className="dropdown_link"
-                        onClick={() => setToggleDropdown(false)}
-                    >
-                        SAC
-                    </Link>
-                    <Link
-                        href='/sobre'
-                        className="sm:hidden dropdown_link"
-                        onClick={() => setToggleDropdown(false)}
-                    >
-                        Sobre nós
-                    </Link>
                     <Link
                         href='/project'
                         className=" sm:hidden dropdown_link"
                         onClick={() => setToggleDropdown(false)}
                     >
                         Marketplace
-                    </Link>
+                    </Link> */}
                     <button
                         type="button"
                         onClick={() => {
