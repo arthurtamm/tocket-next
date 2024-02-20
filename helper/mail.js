@@ -6,15 +6,15 @@ const smtpTransport = nodemailer.createTransport({
     host: 'smtp-relay.brevo.com',
     port: 587,
     auth: {
-        user: "arthurmtamm@gmail.com",
-        pass: "XFJqD8QLAkSN9BrH"
+        user: "contato@tocket.app",
+        pass: process.env.EMAIL_FROM
     }
 })
 
 async function run() {
     let sendResult = await smtpTransport.sendMail({
-        from: 'contato.tocket@gmail.com',
-        to: 'contato.tocket@gmail.com',
+        from: 'contato@tocket.app',
+        to: 'contato@tocket.app',
         subject: 'Teste de envio de email',
         text: 'Olá, este é um teste de envio de email.',
         html: '<body><h1> Olá! </h1> <p> Este é um teste de envio de email. </p> </body>'

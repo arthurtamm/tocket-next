@@ -5,6 +5,8 @@ import Image from "next/image";
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Loading from '@components/Loading'
+import { SiGooglemessages } from "react-icons/si";
+import chatLink from '@helper/whatsapp';
 
 const TicketList = ({ data }) => {
   const sortedTickets = [...data].sort((a, b) => a.price - b.price);
@@ -13,9 +15,20 @@ const TicketList = ({ data }) => {
     <div className="mt-4 mb-8">
       {sortedTickets.map((ticket) => (
         <div className="sticky rounded-lg p-2 m-3 flex flex-col w-2/5 md:flex-row justify-between items-center" key={ticket._id}>
-          <p className="text-lg md:w-1/3">{ticket.user?.username || 'Usuário desconhecido'}</p>
+          <p className="text-lg md:w-1/3">{ticket.user?.name || 'Usuário desconhecido'}</p>
           <p className="text-lg md:w-1/3">R$ {ticket.price.toFixed(2)}</p>
-          <p className="text-lg text-center md:w-1/3">{ticket.user?.phone || 'Sem número cadastrado'}</p>
+          <p className="text-lg text-center md:w-1/3 flex flex-row">
+            <div className="mt-1 mr-2">
+              <a href={chatLink(ticket.user.phoneNumber)}>
+                <SiGooglemessages />
+              </a>
+            </div>
+              {ticket.user?.phoneNumber
+                ? ticket.user.phoneNumber.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1)$2-$3')
+                : 'Sem número cadastrado'}
+            
+          </p>
+
         </div>
       ))}
     </div>
@@ -37,7 +50,7 @@ const EventPage = ( { params } ) => {
     ticketTypes: [],
   });
   const [tickets, setTickets] = useState([]);
-  const [selectedType, setSelectedType] = useState('');
+  const [selectedType, setSelectedType] = useState();
   const [modalVisible, setModalVisible] = useState(false);
   const [price, setPrice] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -94,16 +107,15 @@ const EventPage = ( { params } ) => {
   
   const openModal = () => {
     setPrice('');
+    // Define o selectedType para o primeiro tipo de ingresso disponível
+    if (event.ticketTypes.length > 0) {
+      setSelectedType(event.ticketTypes[0]);
+    }
     setModalVisible(true);
   };
 
   const closeModal = () => {
     setModalVisible(false);
-  };
-
-  const handleConfirm = () => {
-    console.log('Preço confirmado:', price);
-    closeModal();
   };
 
   const sellTicket = async (e) => {
@@ -123,8 +135,12 @@ const EventPage = ( { params } ) => {
           }),
       })
 
-      if(response.ok){
-        router.refresh();
+      if (response.ok) {
+        const newTicket = await response.json(); // Supondo que o servidor retorne o ingresso criado
+  
+        // Aqui você adiciona o novo ingresso ao estado, assegurando que os dados do usuário estão incluídos
+        setTickets(prevTickets => [...prevTickets, { ...newTicket, user: { name: userData.name, phoneNumber: userData.phoneNumber } }]);
+  
       }
     } catch (error) {
         console.log(error);
@@ -133,7 +149,7 @@ const EventPage = ( { params } ) => {
       closeModal();
     }
 }
-
+  console.log("select: ", selectedType);
 return (
   <section className="text-white p-3">
     {loading ? (
