@@ -54,10 +54,10 @@ and pass the connection to the adapter
       await connectToDB(); // Garante que a conexão com o DB está ativa
 
       const existingUser = await User.findOne({ email: user.email }).exec();
-      
+      console.log("user ", user.name);
       if (!existingUser) {
         const newUser = new User({
-          name: user.name, // || profile.name,
+          name: user.email.split("@")[0],
           email: user.email,
           // Outros campos necessários
         });
