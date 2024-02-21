@@ -5,11 +5,12 @@ export const POST = async (request) => {
     try {
         await connectToDB(); // Garanta a conexão com o banco de dados antes de realizar operações
         const { id, name, phoneNumber } = await request.json();
+        console.log("email: ", id, "name: ", name, "phoneNumber: ", phoneNumber);
 
         // Localiza o usuário pelo email e atualiza o nome e o número de telefone
         const updatedUser = await User.findOneAndUpdate(
-            { id }, // critério de busca
-            { name, phoneNumber }, // campos para atualizar
+            { _id : id}, // critério de busca
+            { name : name, phoneNumber : phoneNumber }, // campos para atualizar
             { new: true, runValidators: true } // opções para retornar o documento atualizado e executar validações
         );
 
