@@ -31,7 +31,7 @@ body {
   position: fixed;
   display: flex;
   justify-content: center;
-  padding: 120px 24px 160px 24px;
+  padding: 120px 24px 120px 24px;
   pointer-events: none;
 }
 
