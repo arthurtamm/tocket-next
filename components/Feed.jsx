@@ -43,7 +43,7 @@ const Feed = () => {
     );
 
     return (
-        <section className='flex w-full h-full flex-col items-center '>
+        <section className='flex w-full h-full flex-col items-center'>
 
             <section className='sm:flex hidden flex w-full mt-10 flex-row justify-center items-center'>
 
@@ -68,7 +68,7 @@ const Feed = () => {
                 </form>
             </section>
 
-            <section className='sm:hidden flex w-full h-full mt-2 flex-row justify-center items-center'>
+            <section className='sm:hidden flex w-full h-full mt-2 flex-row justify-center items-center px-5'>
 
                 <div className='flex flex-col justify-start'>
                     <h1 className='text-white ml-2 mr-5 text-2xl'>EVENTOS</h1>

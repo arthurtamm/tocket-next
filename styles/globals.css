@@ -167,10 +167,6 @@ body {
   font-size: 16px;
 }
 
-.sticky{
-  background-color: #1b1a2ea9;
-}
-
 /* PromptCard Component */
 .prompt_card {
   @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
@@ -211,15 +207,22 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.nav_bg {
+  background-color: #1b1a2ea9;
+}
+
 /* @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all 
 hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center; */
 
 .btn {
-  @apply rounded-full py-1.5 px-5 text-white transition-all sticky hover:bg-blue-900 hover:text-white text-center flex items-center justify-center;
+  @apply rounded-full py-1.5 px-2.5 text-white transition-all hover:bg-indigo-950 hover:text-white text-center flex items-center justify-center;
+  background-color: #1b1a2ea9;
+  @apply text-sm lg:text-base;
 }
 
 .btn_anuncia {
-  @apply rounded-full p-4 text-white transition-all sticky hover:bg-blue-900 hover:text-white text-center flex items-center justify-center;
+  @apply rounded-full p-4 text-white transition-all hover:bg-blue-900 hover:text-white text-center flex items-center justify-center;
+  background-color: #1b1a2ea9;
 }
 
 .btn_signin {
