@@ -6,7 +6,7 @@ export const GET = async (request, { params }) => {
         await connectToDB(); // Garanta a conexão com o banco de dados antes de realizar operações
         const id = params.id;
 
-        const user = await User.findOne({ id }).select("_id name phoneNumber");
+        const user = await User.findById( id ).select("_id name phoneNumber");
 
         if (!user) {
             return new Response("User not found", { status: 404 });
