@@ -56,6 +56,7 @@ const EventPage = ( { params } ) => {
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [typeNow, setTypeNow] = useState('');
+  let ticketsArray = {}
 
   const [userData, setUserData] = useState({
     name: null,
@@ -76,10 +77,6 @@ const EventPage = ( { params } ) => {
   
         const eventData = await eventResponse.json();
         const ticketsData = await ticketsResponse.json();
-
-        for (let i = 0; i < ticketsData.length; i++) {
-          console.log("ticketsData: ", ticketsData[i]);
-        }
 
         const userDataRes = userDataResponse ? await userDataResponse.json() : null;
   
@@ -102,6 +99,19 @@ const EventPage = ( { params } ) => {
             phoneNumber: userDataRes.phoneNumber,
           });
         }
+
+        //Daddy was cooking here
+        //Precisa separar em listas diferentes pra poder reduzir o numero apresentado no site para maximo de 5 entao to tentando fazer isso
+        for (let i = 0; i < eventData.ticketTypes.length; i++) {
+          ticketsArray[eventData.ticketTypes[i]] = [];
+        }
+    
+        for (let i = 0; i < tickets.length; i++) {
+          //ticketsArray[tickets[i].type].push(tickets[i]);
+          console.log("type", tickets[i].type);
+        }
+
+        console.log("ticketsArray: ", ticketsArray);
   
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -109,7 +119,7 @@ const EventPage = ( { params } ) => {
         setLoading(false); // Finaliza o carregamento
       }
     };
-  
+
     if (eventId || session?.user?.id) fetchData();
   }, [eventId, session?.user?.id]); // Dependências do useEffect
   
