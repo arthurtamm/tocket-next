@@ -60,21 +60,29 @@ const Nav = () => {
                         <>
                             {providers && 
                                 Object.values(providers).map((provider) => (
-
-                                    // <button
-                                    //     type="button"
-                                    //     key={provider.name}
-                                    //     onClick={() => signIn(provider.id)}
-                                    //     className='btn text-white p-2'
-                                    // >
-                                    //     Entrar
-                                    // </button>
+                                    <div>
+                                    {/* <button
+                                         type="button"
+                                         key={provider.name}
+                                         onClick={() => signIn(provider.id)}
+                                         className='btn text-white p-2'
+                                    >
+                                         Entrar
+                                     </button> */}
                                     <Link
-                                        href='/api/auth/signin'
+                                        href='/login'
+                                        className='bg-white mr-2'
+                                    >
+                                        Acesse sua conta
+                                    </Link>
+
+                                    <Link
+                                        href='/register'
                                         className='bg-white'
                                     >
-                                        Entrar
+                                        Cadastre-se
                                     </Link>
+                                    </div>
                                 ))
                             }
                         </>

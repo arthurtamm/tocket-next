@@ -1,88 +1,109 @@
-"use client";
+'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { signIn, getProviders } from 'next-auth/react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
-const LoginForm = () => {
-
+const RegisterForm = () => {
+    
+    // const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [phoneNumber, setPhoneNumber] = useState("");
     const [error, setError] = useState("");
-    // const [providers, setProviders] = useState(null);
-
+    
     const router = useRouter();
-    
-    // useEffect(() => {
-    //     const setUpProviders = async () => {
-    //         const response = await getProviders();
-    //         console.log("providers:  ", response);
-    //         setProviders(response);
-    //     }
-    
-    //     setUpProviders();
-    //   }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+
+        if (!email) {
+            setError("Todos os campos são necessários.");
+            return;
+        }
 
         try {
-            const res = await signIn("credentials", {
-                email,
-                password,
-                redirect: false,
-            });
-            // const res = await signIn(provider.id);
 
-            if (res.error) {
-                console.log(res.error);
-                setError("Invalid credentials.");
+            const resUserExists = await fetch('api/userExists', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+
+            const { user } = await resUserExists.json();
+
+            if (!user) {
+                setError("Usuário não cadastrado. Por favor, cadastre-se.");
                 return;
             }
 
-            router.replace("/");
-
         } catch (error) {
-            console.log(error);
+            console.log("Error during registration: ", error);
         }
-    }
+
+        if (!email.endsWith('@al.insper.edu.br')) {
+          setError('Email inválido. Por favor, utilize o seu email Insper.');
+          return;
+        }
+    
+        const result = await signIn('email', { email, redirect: false });
+        if (result.ok) {
+            router.push('/check-email');
+        } else {
+            setError('Falha no login. Por favor, tente novamente.');
+        }
+      };
 
     return (
-        <div className='grid place-items-center h-screen bg-white'>
-            <div className='shadow-lg p-5 rounded-lg border-t-4 border-green-400'>
-                <h1 className='text-xl font-bold my-4'>Login</h1>
+    <div className='grid place-items-center h-screen tocket-bg'>
+        <div className='shadow-lg p-5 rounded-lg border-t-4 border-blue-900 sticky'>
+            <h1 className='text-xl font-bold my-4 text-white'> Entrar </h1>
 
-                <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
-                    <input 
-                        className='input-login' 
-                        type="text" 
-                        placeholder='Email'
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input 
-                        className='input-login' 
-                        type="password" 
-                        placeholder='Password'
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button className='bg-green-600 text-white font-bold cursor-pointer px-6 py-2'> Login </button>
+            <form onSubmit={handleSubmit}   className='flex flex-col gap-3'>
+                {/* <input
+                    className='input-login' 
+                    type="text" 
+                    placeholder='Nome e sobrenome'
+                    onChange={(e) => setName(e.target.value)}
+                /> */}
+                
+                <input 
+                    className='input-login' 
+                    type="email" 
+                    placeholder='Email'
+                    onChange={(e) => setEmail(e.target.value)}    
+                />
+                {/* <input 
+                    className='input-login' 
+                    type="password" 
+                    placeholder='Password'
+                    onChange={(e) => setPassword(e.target.value)}
+                /> */}
+                {/* <input 
+                    className='input-login' 
+                    type="phone number" 
+                    placeholder='Número de telefone com DDD (WhatsApp)'
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                /> */}
+                <button className='btn_signin'> Entrar </button>
 
-                    { error && (
-                        <div className='bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2'>
-                            {error}
-                        </div>
-                    )}
+                {   error && (
+                    <div className='bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2'>
+                        {error}
+                    </div>
+                )}
 
-                    <Link className='text-sm mt-3 text-right' href={"/register"}>
-                        Don't you have an account?
-                        <span className='underline'> Register </span>
-                    </Link>
+                <Link className='my-4 text-white text-right' href={"/register"}>
+                    Não possui uma conta?
+                    <span className='underline'> Cadastre-se </span>
+                </Link>
 
-                </form>
-            </div>
+            </form>
         </div>
-    )
+    </div>
+  )
 }
 
-export default LoginForm;
+export default RegisterForm;

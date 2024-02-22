@@ -52,13 +52,15 @@ and pass the connection to the adapter
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       await connectToDB(); // Garante que a conexão com o DB está ativa
-
+      // console.log("callback: ", user.email, " ", user.name, " ", user.phoneNumber)
       const existingUser = await User.findOne({ email: user.email }).exec();
-      console.log("user ", user.name);
+      // console.log("user: ", user.name);
       if (!existingUser) {
         const newUser = new User({
-          name: user.email.split("@")[0],
+          // name: user.email.split("@")[0],
           email: user.email,
+          name: user.name,
+          phoneNumber: user.phoneNumber,
           // Outros campos necessários
         });
 

@@ -17,7 +17,7 @@ const Footer = () => {
                     <h3>{year}</h3>
                 </div>
                 <div className="footer-copywright">
-                    <h3>contato.tocket@gmail.com</h3>
+                    <h3>contato@tocket.app</h3>
                 </div>
             </div>
         </div>
