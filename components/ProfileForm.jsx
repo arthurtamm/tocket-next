@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+import { set } from 'mongoose';
 
 const ProfileForm = () => {
     const { data: session } = useSession();
@@ -13,6 +15,19 @@ const ProfileForm = () => {
     const [error, setError] = useState("");
     
     const router = useRouter();
+
+    const getUserData = async () => {
+        try {
+            console.log(session?.user?.id);
+            const res = await fetch(`/api/userData/${session?.user?.id}`);
+            const data = await res.json();
+            console.log(data);
+            setName(data.name);
+            setPhoneNumber(data.phoneNumber);
+        } catch (error) {
+            console.log("Error fetching user data: ", error);
+        }
+    }
 
     const handleSubmit =  async (e) => {
         e.preventDefault();
@@ -55,6 +70,10 @@ const ProfileForm = () => {
         }
     };
 
+    useEffect(() => {
+        getUserData();
+      }, [])
+
     return (
     <div className='grid place-items-top h-screen bg-white w-full'>
         <div className='shadow-lg p-5 rounded-lg w-full flex-col justify-center items-center'>
@@ -64,19 +83,19 @@ const ProfileForm = () => {
             <input
                     className='input-login' 
                     type="text" 
-                    placeholder={session?.user?.email ? (session?.user?.email) : ('Email')}
+                    value={session?.user?.email ? (session?.user?.email) : ('Carregando Dados...')}
                     disabled
                 />
                 <input
                     className='input-login' 
                     type="text" 
-                    placeholder={session?.user?.name ? (session?.user?.name) : ('Nome de usuário')}
+                    value={name ? (name) : ('Carregando Dados...')}
                     onChange={(e) => setName(e.target.value)}
                 />
                 <input 
                     className='input-login' 
                     type="phone number" 
-                    placeholder={session?.user?.phoneNumber ? (session?.user?.phoneNumber) : ('Número de telefone com DDD')}
+                    value={phoneNumber ? (phoneNumber) : ('Carregando Dados...')}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                 />
                 <button className='bg-indigo-900 text-white font-bold cursor-pointer px-6 py-2'> Atualizar Dados </button>

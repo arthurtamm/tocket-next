@@ -12,14 +12,14 @@ const TicketList = ({ data }) => {
   const sortedTickets = [...data].sort((a, b) => a.price - b.price);
 
   return (
-    <div className="mt-4 mb-8">
+    <div className="mt-4 mb-8 flex-col">
       {sortedTickets.map((ticket) => (
-        <div className="sticky rounded-lg p-2 m-3 flex flex-col w-2/5 md:flex-row justify-between items-center" key={ticket._id}>
+        <div className="sticky rounded-lg p-2 m-3 flex flex-col w-full md:flex-row justify-between items-center" key={ticket._id}>
           <p className="text-lg md:w-1/3">{ticket.user?.name || 'Usuário desconhecido'}</p>
           <p className="text-lg md:w-1/3">R$ {ticket.price.toFixed(2)}</p>
           <p className="text-lg text-center md:w-1/3 flex flex-row">
             <div className="mt-1 mr-2">
-              <a href={chatLink(ticket.user.phoneNumber)}>
+              <a href={chatLink(ticket.user?.phoneNumber)}>
                 <SiGooglemessages />
               </a>
             </div>
@@ -55,6 +55,8 @@ const EventPage = ( { params } ) => {
   const [price, setPrice] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [typeNow, setTypeNow] = useState('');
+  let ticketsArray = {}
 
   const [userData, setUserData] = useState({
     name: null,
@@ -70,12 +72,13 @@ const EventPage = ( { params } ) => {
         const [eventResponse, ticketsResponse, userDataResponse] = await Promise.all([
           fetch(`/api/event/${eventId}`),
           fetch(`/api/ticket/${eventId}`),
-          session?.user?.id ? fetch(`/api/userData/${session.user.id}`) : Promise.resolve(null),
+          session?.user?.id ? fetch(`/api/userData/${session?.user?.id}`) : Promise.resolve(null),
         ]);
   
         const eventData = await eventResponse.json();
         const ticketsData = await ticketsResponse.json();
-        const userData = userDataResponse ? await userDataResponse.json() : null;
+
+        const userDataRes = userDataResponse ? await userDataResponse.json() : null;
   
         // Atualiza o estado com os dados recebidos
         setEvent({
@@ -85,14 +88,30 @@ const EventPage = ( { params } ) => {
           place: eventData.place,
           ticketTypes: eventData.ticketTypes || [],
         });
+
+        setTypeNow(eventData.ticketTypes[0]);
+
         setTickets(ticketsData);
   
         if (userData) {
           setUserData({
-            name: userData.name,
-            phoneNumber: userData.phoneNumber,
+            name: userDataRes.name,
+            phoneNumber: userDataRes.phoneNumber,
           });
         }
+
+        //Daddy was cooking here
+        //Precisa separar em listas diferentes pra poder reduzir o numero apresentado no site para maximo de 5 entao to tentando fazer isso
+        for (let i = 0; i < eventData.ticketTypes.length; i++) {
+          ticketsArray[eventData.ticketTypes[i]] = [];
+        }
+    
+        for (let i = 0; i < tickets.length; i++) {
+          //ticketsArray[tickets[i].type].push(tickets[i]);
+          console.log("type", tickets[i].type);
+        }
+
+        console.log("ticketsArray: ", ticketsArray);
   
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -100,7 +119,7 @@ const EventPage = ( { params } ) => {
         setLoading(false); // Finaliza o carregamento
       }
     };
-  
+
     if (eventId || session?.user?.id) fetchData();
   }, [eventId, session?.user?.id]); // Dependências do useEffect
   
@@ -149,7 +168,6 @@ const EventPage = ( { params } ) => {
       closeModal();
     }
 }
-  console.log("select: ", selectedType);
 return (
   <section className="text-white p-3">
     {loading ? (
@@ -243,14 +261,22 @@ return (
 
         <p className="text-center pt-10 pb-4"> Ingressos Disponíveis </p>
 
-         {event.ticketTypes.map((type) => (
-            <div key={type}>
-              <h2>{type}</h2>
+                    <select
+                      id="ticketType"
+                      value={selectedType}
+                      onChange={(e) => setTypeNow(e.target.value)}
+                      className="p-2 border rounded-md w-full text-black"
+                    >
+                      {event.ticketTypes.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+
               <TicketList
-                data={tickets.filter((ticket) => ticket.type === type)}
+                data={tickets.filter((ticket) => ticket.type === typeNow).filter((ticket) => tickets.indexOf(ticket) < 5 )}
               />
-            </div>
-          ))}
       </>
     )}
   </section>

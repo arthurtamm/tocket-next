@@ -35,7 +35,7 @@ const Nav = () => {
       }, [])
 
     return (
-        <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'sticky' : 'bg-transparent'}`}>
+        <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'nav_bg' : 'bg-transparent'}`}>
             <div className='flex justify-between py-5 px-5 md:mx-10'>
                 <Link href="/" className="flex items-center">
                     <Image
@@ -60,25 +60,17 @@ const Nav = () => {
                         <>
                             {providers && 
                                 Object.values(providers).map((provider) => (
-                                    <div>
-                                    {/* <button
-                                         type="button"
-                                         key={provider.name}
-                                         onClick={() => signIn(provider.id)}
-                                         className='btn text-white p-2'
-                                    >
-                                         Entrar
-                                     </button> */}
+                                    <div className='flex'>
                                     <Link
                                         href='/login'
-                                        className='bg-white mr-2'
+                                        className='btn'
                                     >
                                         Acesse sua conta
                                     </Link>
 
                                     <Link
                                         href='/register'
-                                        className='bg-white'
+                                        className='btn ml-1'
                                     >
                                         Cadastre-se
                                     </Link>
