@@ -1,6 +1,5 @@
 import { connectToDB } from "@utils/database";
 import Ticket from "@models/ticket";
-import { bodyParser } from '@middleware/bodyParser';
 
 export const POST = async (request, { params }) => {
     try {

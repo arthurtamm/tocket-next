@@ -31,7 +31,14 @@ const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
                         className="dropdown_link"
                         onClick={() => setToggleDropdown(false)}
                     >
-                        Perfil
+                        Minha conta
+                    </Link>
+                    <Link
+                        href='/myTickets'
+                        className="dropdown_link"
+                        onClick={() => setToggleDropdown(false)}
+                    >
+                        Meus ingressos
                     </Link>
                     <button
                         type="button"

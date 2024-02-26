@@ -123,12 +123,12 @@ const EventForm = ( { eventId } ) => {
 
 
     const openModal = () => {
-    setPrice('');
-    // Define o selectedType para o primeiro tipo de ingresso disponível
-    if (event.ticketTypes.length > 0) {
-        setSelectedType(event.ticketTypes[0]);
-    }
-    setModalVisible(true);
+        setPrice('');
+        // Define o selectedType para o primeiro tipo de ingresso disponível
+        if (event.ticketTypes.length > 0) {
+            setSelectedType(event.ticketTypes[0]);
+        }
+        setModalVisible(true);
     };
 
     const closeModal = () => {
@@ -213,47 +213,47 @@ const EventForm = ( { eventId } ) => {
 
             { modalVisible && (
                 <div className="modal-overlay">
-                <div className="modal">
-                    <div className="mb-4">
-                    <p className="mb-2">Preço:</p>
-                    <div className="flex items-center border rounded-md">
-                        <span className="p-2 bg-gray-200">R$</span>
-                        <input
-                        type="text"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        className="p-2 flex-1 text-black"
-                        placeholder="0,00"
-                        />
-                    </div>
-                    </div>
+                    <div className="modal">
+                        <div className="mb-4">
+                            <p className="mb-2">Preço:</p>
+                            <div className="flex items-center border rounded-md">
+                                <span className="p-2 bg-gray-200">R$</span>
+                                <input
+                                type="text"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                className="p-2 flex-1 text-black"
+                                placeholder="0,00"
+                                />
+                            </div>
+                        </div>
 
-                    <div className="mb-4">
-                    <label htmlFor="ticketType" className="mb-2 block">Tipo:</label>
-                    <select
-                        id="ticketType"
-                        value={selectedType}
-                        onChange={(e) => setSelectedType(e.target.value)}
-                        className="p-2 border rounded-md w-full text-black"
-                    >
-                        {event.ticketTypes.map((type) => (
-                        <option key={type} value={type}>
-                            {type}
-                        </option>
-                        ))}
-                    </select>
-                    </div>
+                        <div className="mb-4">
+                            <label htmlFor="ticketType" className="mb-2 block">Tipo:</label>
+                            <select
+                                id="ticketType"
+                                value={selectedType}
+                                onChange={(e) => setSelectedType(e.target.value)}
+                                className="p-2 border rounded-md w-full text-black"
+                            >
+                                {event.ticketTypes.map((type) => (
+                                <option key={type} value={type}>
+                                    {type}
+                                </option>
+                                ))}
+                            </select>
+                        </div>
 
-                    <div className="flex justify-between">
-                    <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg">
-                        Cancelar
-                    </button>
+                        <div className="flex justify-between">
+                            <button onClick={closeModal} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg">
+                                Cancelar
+                            </button>
 
-                    <button onClick={sellTicket} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg">
-                        Confirmar
-                    </button>
+                            <button onClick={sellTicket} className="bg-blue-900 bg-opacity-65 text-white p-2 rounded-lg">
+                                Confirmar
+                            </button>
+                        </div>
                     </div>
-                </div>
                 </div>
             )}
 
