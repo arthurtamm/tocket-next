@@ -8,3 +8,47 @@
 .slick-dots li.slick-active button:before {
     color: rgb(140, 0, 255); /* Change the color as needed */
 }
+
+.tocket-bg {
+    background-color: #0c0513;
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.form-cadastro {
+    @apply text-sm lg:text-base bg-indigo-950;
+}
+
+.btn-signin {
+    @apply p-4 text-white font-bold transition-all bg-violet-900 hover:bg-purple-950 hover:text-white text-center flex items-center justify-center;
+}
+
+.form-login {
+    @apply text-sm lg:text-base bg-indigo-950;
+}
+
+.btn-login {
+    @apply p-2 text-white font-bold transition-all bg-violet-900 hover:bg-purple-950 hover:text-white text-center flex items-center justify-center;
+}
+
+.nav-bg {
+    background-color: #1b1a2ea9;
+}
+
+.footer-bg {
+    /* background-color: #1b1a2ea9; */
+    border-top-color: #1b1a2ea9;
+    border-top-width: 0.2em;
+}
+
+.header-bg {
+    background-color: #1b1a2ea9;
+}
+
+.profile-dropdown {
+    background-color: #1b1a2ea9;
+    transition: all 0.4s ease-in-out;
+    animation: fadeIn 0.4s;
+    @apply transition-all ease-in-out;
+}

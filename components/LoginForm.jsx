@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import '@styles/styles.css';
 
 const RegisterForm = () => {
     
@@ -58,7 +59,7 @@ const RegisterForm = () => {
 
     return (
     <div className='grid place-items-center h-screen tocket-bg'>
-        <div className='shadow-lg p-5 rounded-lg border-t-4 border-blue-900 sticky'>
+        <div className='shadow-lg p-5 rounded-lg form-login sticky'>
             <h1 className='text-xl font-bold my-4 text-white'> Entrar </h1>
 
             <form onSubmit={handleSubmit}   className='flex flex-col gap-3'>
@@ -87,7 +88,7 @@ const RegisterForm = () => {
                     placeholder='Número de telefone com DDD (WhatsApp)'
                     onChange={(e) => setPhoneNumber(e.target.value)}
                 /> */}
-                <button className='btn_signin'> Entrar </button>
+                <button className='btn-login'> Entrar </button>
 
                 {   error && (
                     <div className='bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2'>

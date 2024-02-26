@@ -225,10 +225,6 @@ hover:bg-white hover:text-black text-center text-sm font-inter flex items-center
   background-color: #1b1a2ea9;
 }
 
-.btn_signin {
-  @apply p-4 text-white font-bold transition-all bg-blue-900 hover:bg-blue-900 hover:text-white text-center flex items-center justify-center;
-}
-
 /* Estilos para o contêiner do input e o prefixo */
 .modal .flex {
   /* border: 1px solid rgb(182, 182, 182); */

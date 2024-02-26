@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHome, AiOutlineSwap, AiOutlineUser } from "react-icons/ai";
 import { signIn, signOut, useSession, getProviders} from 'next-auth/react';
 import Dropdown from '@components/Dropdown';
+import '@styles/styles.css';
 
 const Nav = () => {
     const { data: session } = useSession();
@@ -35,7 +36,7 @@ const Nav = () => {
       }, [])
 
     return (
-        <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'nav_bg' : 'bg-transparent'}`}>
+        <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'nav-bg' : 'bg-transparent'}`}>
             <div className='flex justify-between py-5 px-5 md:mx-10'>
                 <Link href="/" className="flex items-center">
                     <Image

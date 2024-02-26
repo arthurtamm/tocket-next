@@ -7,13 +7,14 @@ import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import Loading from '@components/Loading';
 import { RiDeleteBin6Line } from "react-icons/ri";
+import '@styles/styles.css'; 
 
 
 const UserTicketList = ({ data, openModal }) => {
     const sortedTickets = [...data].sort((a, b) => a.price - b.price);
     
     return (
-      <div className="mt-4 mb-8 flex-col">
+      <div className="mt-4 mb-8 flex-col tocket-bg">
         {sortedTickets.map((ticket) => (
           <div className="bg-blue-900 rounded-lg p-2 m-3 flex flex-row w-full md:flex-row justify-between text-white" key={ticket._id}>
             <p className="text-lg md:w-1/3 ml-2">{ticket.event?.title}</p>
@@ -201,9 +202,9 @@ const ProfileForm = () => {
     }
 
     return (
-        <div className='grid place-items-top h-screen w-full bg-white'>
+        <div className='grid place-items-top h-screen w-full bg-tocket'>
             <div className='shadow-lg p-5 rounded-lg w-full flex-col justify-center items-center'>
-                <h1 className='text-xl font-bold mb-4'>Dados Cadastrais</h1>
+                <h1 className='text-xl font-bold mb-4 text-white'>Dados Cadastrais</h1>
 
                 <form onSubmit={handleSubmit}   className='flex flex-col gap-3'>
                 <input

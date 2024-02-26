@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
+import '@styles/styles.css';
 
 const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
     return (
@@ -25,7 +26,7 @@ const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
 
                                         {
             toggleDropdown && (
-                <div className="dropdown bg-black z-50">
+                <div className="dropdown profile-dropdown ">
                     <Link
                         href='/profile'
                         className="dropdown_link"
