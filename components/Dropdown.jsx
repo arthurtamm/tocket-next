@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-import '@styles/styles.css';
 
 const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
     return (
         <>
             <div 
-                className="flex items-center"
-                onClick={() => setToggleDropdown((prev) => !prev)}
-                    >
+                className={`flex items-center burger-animate ${toggleDropdown ? 'open' : ''}`}
+                onClick={() => setToggleDropdown(prev => !prev)}
+            >
                 <svg
                     className="w-8 h-8 text-gray-300"
                     fill="none"
@@ -20,13 +18,14 @@ const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                 >
-                    <path d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path className="line1" d="M4 6h16"></path>
+                    <path className="line2" d="M4 12h16"></path>
+                    <path className="line3" d="M4 18h16"></path>
                 </svg>
             </div>
 
-                                        {
-            toggleDropdown && (
-                <div className="dropdown profile-dropdown ">
+            {toggleDropdown && (
+                <div className={`dropdown profile-dropdown ${toggleDropdown ? 'active' : ''}`}>
                     <Link
                         href='/profile'
                         className="dropdown_link"
@@ -34,22 +33,6 @@ const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
                     >
                         Perfil
                     </Link>
-
-                    {/* <Link
-                        href='/eventos'
-                        className="dropdown_link"
-                        onClick={() => setToggleDropdown(false)}
-                    >
-                        Eventos
-                    </Link>
-
-                    <Link
-                        href='/project'
-                        className=" sm:hidden dropdown_link"
-                        onClick={() => setToggleDropdown(false)}
-                    >
-                        Marketplace
-                    </Link> */}
                     <button
                         type="button"
                         onClick={() => {
@@ -61,8 +44,7 @@ const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
                         Sair
                     </button>
                 </div>
-                )
-            }
+            )}
         </>
     );
 }
