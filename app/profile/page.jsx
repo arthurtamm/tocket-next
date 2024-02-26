@@ -7,7 +7,7 @@ const Profile = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <div className='bg-white'>
+    <div>
         <ProfileForm/>
     </div>
   )

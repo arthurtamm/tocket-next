@@ -201,9 +201,11 @@ return (
               onClick={() => {
                 if (userData.name) {
                   openModal();
-                } else {
+                } else if (session){
                   console.log("userData: ", userData);
                   router.push('/profile');
+                } else {
+                  router.push('/login');
                 }
               }}
             >
@@ -261,22 +263,22 @@ return (
 
         <p className="text-center pt-10 pb-4"> Ingressos Disponíveis </p>
 
-                    <select
-                      id="ticketType"
-                      value={selectedType}
-                      onChange={(e) => setTypeNow(e.target.value)}
-                      className="p-2 border rounded-md w-full text-black"
-                    >
-                      {event.ticketTypes.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
+        <select
+          id="ticketType"
+          value={selectedType}
+          onChange={(e) => setTypeNow(e.target.value)}
+          className="p-2 border rounded-md w-full text-black"
+        >
+          {event.ticketTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
 
-              <TicketList
-                data={tickets.filter((ticket) => ticket.type === typeNow).filter((ticket) => tickets.indexOf(ticket) < 5 )}
-              />
+        <TicketList
+          data={tickets.filter((ticket) => ticket.type === typeNow).filter((ticket) => tickets.indexOf(ticket) < 5 )}
+        />
       </>
     )}
   </section>

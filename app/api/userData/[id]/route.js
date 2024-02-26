@@ -7,7 +7,6 @@ export const GET = async (request, { params }) => {
         const id = params.id;
 
         const user = await User.findById( id ).select("_id name phoneNumber");
-
         if (!user) {
             return new Response("User not found", { status: 404 });
         }

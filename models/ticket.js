@@ -19,6 +19,11 @@ const TicketSchema = new Schema({
         type: String,
         required: [true, 'Type is required.'],
     },
+    status: {
+        type: String,
+        default: 'active',
+        required: [true, 'Status is required.'],
+    }
 });
 
 const Ticket = models.Ticket || model('Ticket', TicketSchema);
