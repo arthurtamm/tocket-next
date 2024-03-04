@@ -51,6 +51,8 @@
     transition: opacity 0.4s ease-in-out, visibility 0s linear 0.4s; /* Delay visibility adjustment to match opacity transition */
     opacity: 0;
     visibility: hidden;
+    z-index: 100;
+    width: 200px;
 }
 
 .profile-dropdown.active {

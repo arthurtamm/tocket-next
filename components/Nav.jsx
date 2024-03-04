@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHome, AiOutlineSwap, AiOutlineUser } from "react-icons/ai";
 import { signIn, signOut, useSession, getProviders} from 'next-auth/react';
 import Dropdown from '@components/Dropdown';
+import HamburgerMenu from '@components/Burger';
 import '@styles/styles.css';
 
 const Nav = () => {
@@ -36,7 +37,7 @@ const Nav = () => {
       }, [])
 
     return (
-        <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'nav-bg' : 'bg-transparent'}`}>
+        <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 sticky ${navSticky ? 'nav-bg' : 'bg-transparent'}`}>
             <div className='flex justify-between py-5 px-5 md:mx-10'>
                 <Link href="/" className="flex items-center">
                     <Image
@@ -50,12 +51,17 @@ const Nav = () => {
                 <div className='flex relative'>
                     {session?.user ? (
                         <>
-                                <div className='flex'>
-                                    <Dropdown
-                                        toggleDropdown={toggleDropdown}
-                                        setToggleDropdown={setToggleDropdown}
-                                    />
-                                </div>
+                            <div className='hidden xl:flex'>
+                                <Dropdown
+                                    toggleDropdown={toggleDropdown}
+                                    setToggleDropdown={setToggleDropdown}
+                                />
+                            </div>
+
+                            <div className='flex xl:hidden'>
+                                <HamburgerMenu />
+                            </div>
+
                             </>
                     ): (
                         <>
