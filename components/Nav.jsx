@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHome, AiOutlineSwap, AiOutlineUser } from "react-icons/ai";
 import { signIn, signOut, useSession, getProviders} from 'next-auth/react';
 import Dropdown from '@components/Dropdown';
-import HamburgerMenu from '@components/Burger';
+import HamburgerMenu from '@components/Menu';
 import '@styles/styles.css';
 
 const Nav = () => {
@@ -14,6 +14,7 @@ const Nav = () => {
     const [providers, setProviders] = useState(null);
     const [navSticky, setNavSticky] = useState(false);
     const [toggleDropdown, setToggleDropdown] = useState(false);
+    const [toggleMenu, setToggleMenu] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -59,7 +60,10 @@ const Nav = () => {
                             </div>
 
                             <div className='flex xl:hidden'>
-                                <HamburgerMenu />
+                                <HamburgerMenu 
+                                    toggleMenu={toggleMenu}
+                                    setToggleMenu={setToggleMenu}
+                                />
                             </div>
 
                             </>

@@ -1,6 +1,5 @@
 import '@styles/globals.css';
 import '@styles/styles.css';
-import '@styles/burger.css';
 import Nav from '@components/Nav';
 import Provider from '@components/Provider';
 import Footer from '@components/Footer';

@@ -46,25 +46,110 @@
     background-color: #1b1a2ea9;
 }
 
+/* Adjusting initial and active states for the dropdown */
 .profile-dropdown {
-    background-color: #1b1a2ea9;
-    transition: opacity 0.4s ease-in-out, visibility 0s linear 0.4s; /* Delay visibility adjustment to match opacity transition */
+    background-color: #1b1a2ee3; /* or use Tailwind's bg-color utility in the JSX */
+    transition: all 0.3s ease-out;
     opacity: 0;
     visibility: hidden;
-    z-index: 100;
-    width: 200px;
+    transform: translateY(-10px); /* Start slightly above */
+    z-index: 50; /* Ensure it's above other content */
+    width: 200px; /* Adjust as needed */
 }
 
 .profile-dropdown.active {
-    transition: opacity 0.4s ease-in-out, visibility 0s linear 0s; /* Apply visibility transition immediately */
     opacity: 1;
     visibility: visible;
+    transform: translateY(0); /* Move to final position */
 }
 
-/* .burger-animate.open .line1 {
-    transform: rotate(45deg) translate(5px, -5px);
+/* Ensure transitions for burger menu animations are applied as needed */
+.burger-animate.open .line1, .burger-animate.open .line2, .burger-animate.open .line3 {
+    transition: transform 0.3s ease, opacity 0.2s ease;
 }
 
-.burger-animate.open .line3 {
-    transform: rotate(-45deg) translate(5px, -5px);
+.bm-burger-button {
+    width: 36px;
+    height: 30px;
+    left: 36px;
+
+    top: 86px;
+}
+
+/* .bm-burger-bars {
+    background: #0c0513;
 } */
+
+.bm-burger-bars-hover {
+    background: #a90000;
+    top: 86px;
+}
+
+.bm-cross-button {
+    height: 24px;
+    width: 24px;
+    top: 86px;
+}
+
+.bm-cross {
+    background: #bdc3c7;
+    top: 86px;
+}
+
+.bm-menu-wrap {
+    position: relative;
+    height: 100%;
+    top: 86px;
+}
+
+.bm-menu {
+    background: #0c0513;
+    padding: 0.3rem 0.3rem 0;
+    width: 200px;
+    position: relative;
+    @apply bg-opacity-5;
+}
+
+/* .bm-morph-shape {
+    fill: #373a47;
+} */
+
+.bm-item-list {
+    color: #ffffff;
+    padding: 0.8em;
+    top: 86px;
+}
+
+.bm-item {
+    display: inline-block;
+    top: 86px;
+}
+
+.bm-overlay {
+    display: none;
+    top: 86px;
+}
+
+/* styling next link component so that will be a column list of links*/
+.bm-item-list a {
+    display: flex;
+    flex-direction: column;
+    top: 86px;
+    @apply mt-6;
+}
+
+.hamburger-icon .line {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.hamburger-icon.open .line1 {
+    transform: rotate(45deg) translate(6px, -4px);
+}
+
+.hamburger-icon.open .line2 {
+    opacity: 0;
+}
+
+.hamburger-icon.open .line3 {
+    transform: rotate(-45deg) translate(-14px, 0px);
+}
