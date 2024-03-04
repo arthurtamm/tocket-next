@@ -16,7 +16,7 @@ const HamburgerMenu = ({ toggleMenu, setToggleMenu, navSticky }) => {
             position: 'fixed',
             height: '100%',
             // Aplicando estilos condicionais com base em navSticky
-            background: navSticky ? '#0c0513': 'sticky bg-transparent'
+            background: navSticky ? '#0c0513': 'bg-transparent'
         }
     };
 
