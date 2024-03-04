@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { slide as Menu } from 'react-burger-menu';
 
-const HamburgerMenu = ({ toggleMenu, setToggleMenu }) => {
+const HamburgerMenu = ({ toggleMenu, setToggleMenu, navSticky }) => {
     // Controlar o estado de abertura do menu
     const [isOpen, setIsOpen] = useState(false);
 
@@ -11,10 +11,20 @@ const HamburgerMenu = ({ toggleMenu, setToggleMenu }) => {
         setToggleMenu(state.isOpen); // Sincroniza com o estado externo, se necessário
     };
 
+    const menuStyles = {
+        bmMenuWrap: {
+            position: 'fixed',
+            height: '100%',
+            // Aplicando estilos condicionais com base em navSticky
+            background: navSticky ? '#0c0513': 'sticky bg-transparent'
+        }
+    };
+
     return (
         <div className="relative p-2">
             <Menu
                 right
+                styles={menuStyles} // Aplicando os estilos customizados
                 isOpen={isOpen}
                 onStateChange={handleStateChange}
                 customBurgerIcon={<HamburgerIcon isOpen={isOpen} />}

@@ -80,20 +80,9 @@
     background: #0c0513;
 } */
 
-.bm-burger-bars-hover {
-    background: #a90000;
-    top: 86px;
-}
-
 .bm-cross-button {
     height: 24px;
     width: 24px;
-    top: 86px;
-}
-
-.bm-cross {
-    background: #bdc3c7;
-    top: 86px;
 }
 
 .bm-menu-wrap {
@@ -103,7 +92,7 @@
 }
 
 .bm-menu {
-    background: #0c0513;
+    /* background: #0c0513; */
     padding: 0.3rem 0.3rem 0;
     width: 200px;
     position: relative;

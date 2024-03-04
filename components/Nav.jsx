@@ -60,10 +60,12 @@ const Nav = () => {
                             </div>
 
                             <div className='flex xl:hidden'>
-                                <HamburgerMenu 
+                                <HamburgerMenu
                                     toggleMenu={toggleMenu}
                                     setToggleMenu={setToggleMenu}
+                                    navSticky={navSticky} // Passando navSticky para HamburgerMenu
                                 />
+
                             </div>
 
                             </>
