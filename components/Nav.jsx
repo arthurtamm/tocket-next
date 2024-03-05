@@ -38,7 +38,7 @@ const Nav = () => {
       }, [])
 
     return (
-        <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 sticky ${navSticky ? 'nav-bg' : 'bg-transparent'}`}>
+        <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'nav-bg' : 'bg-transparent'}`}>
             <div className='flex justify-between py-5 px-5 md:mx-10'>
                 <Link href="/" className="flex items-center">
                     <Image
