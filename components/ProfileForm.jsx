@@ -177,10 +177,6 @@ const ProfileForm = () => {
 
 		{/* Telas Menores */}
 		<div className='flex flex-col xl:hidden items-center p-5'>
-				<h1 className='text-2xl mb-4 text-white'>
-					Meus Dados
-				</h1>
-
 			<div className='w-[140px] h-[140px] rounded-full mx-auto overflow-hidden'>
 				<Image
 					src="/assets/images/profile2.png"
