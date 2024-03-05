@@ -22,7 +22,12 @@ const ProfileForm = () => {
 	const [phoneNumber, setPhoneNumber] = useState("");
 	const [error, setError] = useState("");
 	const [editing, setEditing] = useState(false);
-	const [startDate, setStartDate] = useState(new Date('2003-09-21'));
+	const startDate = new Date();
+	const formattedDate = startDate.toLocaleDateString('pt-BR', {
+		day: '2-digit', // Exibe o dia com dois dígitos
+		month: '2-digit', // Exibe o mês com dois dígitos
+		year: 'numeric', // Exibe o ano numericamente
+	});
 
 	const router = useRouter();
 
