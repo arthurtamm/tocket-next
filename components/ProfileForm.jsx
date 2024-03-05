@@ -202,7 +202,7 @@ const ProfileForm = () => {
 					<div className='flex flex-wrap justify-center gap-3'>
 		
 						<div className="input-login">
-							<MdModeEdit className="absolute" size="1.5em" />
+							<MdModeEdit className="absolute" size="1.25em" />
 							<input
 								className="ml-8 w-full bg-transparent outline-none"
 								type="text"
@@ -212,7 +212,7 @@ const ProfileForm = () => {
 						</div>
 
 						<div className="input-login">
-							<HiDevicePhoneMobile className="absolute" size="1.5em" />
+							<HiDevicePhoneMobile className="absolute" size="1.25em" />
 							<input
 								className="ml-8 w-full bg-transparent outline-none"
 								type="phone number"
@@ -222,7 +222,7 @@ const ProfileForm = () => {
 						</div>
 
 						<div className="input-login">
-							<HiOutlineIdentification className="absolute" size="1.5em" />
+							<HiOutlineIdentification className="absolute" size="1.25em" />
 							<input
 								className="ml-8 w-full bg-transparent outline-none"
 								type="document"
@@ -231,7 +231,7 @@ const ProfileForm = () => {
 						</div>
 
 						<div className="input-login relative">
-							<IoCalendarOutline className="absolute left-0 top-0 mt-2 ml-2" size="1.5em" />
+							<IoCalendarOutline className="absolute left-0 top-0 mt-2 ml-2" size="1.25em" />
 							<DatePicker
 								selected={startDate}
 								onChange={(date) => setStartDate(date)}
