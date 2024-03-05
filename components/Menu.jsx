@@ -63,13 +63,13 @@ export const Links = () => (
         <Link
             href="/profile"
         >
-            Minha conta
+            Meus Dados
         </Link>
 
         <Link
             href='/myTickets'
         >
-            Meus ingressos
+            Meus Ingressos
         </Link>
 
         <Link

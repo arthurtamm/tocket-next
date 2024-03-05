@@ -43,8 +43,8 @@ const Dropdown = ({ toggleDropdown, setToggleDropdown }) => {
             </div>
 
             <div style={dropdownStyles} className="dropdown profile-dropdown">
-                <Link href='/profile' className="dropdown_link" onClick={() => setToggleDropdown(false)}>Minha conta</Link>
-                <Link href='/myTickets' className="dropdown_link" onClick={() => setToggleDropdown(false)}>Meus ingressos</Link>
+                <Link href='/profile' className="dropdown_link" onClick={() => setToggleDropdown(false)}>Meus Dados</Link>
+                <Link href='/myTickets' className="dropdown_link" onClick={() => setToggleDropdown(false)}>Meus Ingressos</Link>
                 <button
                     type="button"
                     className='dropdown_link'

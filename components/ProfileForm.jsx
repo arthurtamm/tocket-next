@@ -123,10 +123,10 @@ const ProfileForm = () => {
 
 			<div className='shadow-lg p-5 rounded-lg w-full flex-col justify-center items-center'>
 				<form onSubmit={handleSubmit} className='flex flex-col justify-center gap-6'>
-					<div className='flex flex-col justify-center items-center gap-3'>
+					<div className='flex flex-wrap max-w-[700px] w-fit justify-center items-center align-middle mx-auto gap-5'>
 
 						<div className="input-login">
-							<MdModeEdit className="absolute" size="1.5em" />
+							<MdModeEdit className="absolute " size="1.25em" />
 							<input
 								className="ml-8 w-full bg-transparent outline-none"
 								type="text"
@@ -136,7 +136,7 @@ const ProfileForm = () => {
 						</div>
 
 						<div className="input-login">
-							<HiDevicePhoneMobile className="absolute" size="1.5em" />
+									<HiDevicePhoneMobile className="absolute " size="1.25em" />
 							<input
 								className="ml-8 w-full bg-transparent outline-none"
 								type="phone number"
@@ -146,7 +146,7 @@ const ProfileForm = () => {
 						</div>
 
 						<div className="input-login">
-							<HiOutlineIdentification className="absolute" size="1.5em" />
+									<HiOutlineIdentification className="absolute " size="1.25em" />
 							<input
 								className="ml-8 w-full bg-transparent outline-none"
 								type="document"
@@ -155,7 +155,7 @@ const ProfileForm = () => {
 						</div>
 
 						<div className="input-login">
-							<GiGraduateCap className="absolute" size="1.5em" />
+									<GiGraduateCap className="absolute " size="1.25em" />
 							<input
 								className="ml-8 w-full bg-transparent outline-none"
 								type="university"
