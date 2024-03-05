@@ -130,7 +130,7 @@ const ProfileForm = () => {
 							<input
 								className="ml-8 w-full bg-transparent outline-none"
 								type="text"
-								value={name ? (name) : ('Carregando Dados...')}
+								value={name}
 								onChange={(e) => setName(e.target.value)}
 							/>
 						</div>
@@ -202,7 +202,7 @@ const ProfileForm = () => {
 							<input
 								className="ml-8 w-full bg-transparent outline-none"
 								type="text"
-								value={name ? (name) : ('Carregando Dados...')}
+								value={name}
 								onChange={(e) => setName(e.target.value)}
 							/>
 						</div>
