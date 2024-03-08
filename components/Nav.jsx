@@ -40,7 +40,7 @@ const Nav = () => {
     return (
         <nav className={`transition-all duration-300 w-full top-0 z-10 bg-indigo-900 ${navSticky ? 'nav-bg' : 'bg-transparent'}`}>
             <div className='flex justify-between py-5 px-5 md:mx-10'>
-                <Link href="/" className="flex items-center">
+                <Link prefetch href="/" className="flex items-center">
                     <Image
                         src="/assets/images/logo.png"
                         alt="Logo"
